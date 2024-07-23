@@ -84,6 +84,10 @@ public class Reservation {
         return roomInfo;
     }
 
+    public int getTotalDays() {
+        return outDay - inDay;
+    }
+    
     /**
      * Calculates and returns the total booking price based on the number of days
      * stayed and the price per night of the room.
