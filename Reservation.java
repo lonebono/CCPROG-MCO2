@@ -12,6 +12,7 @@ public class Reservation {
     private Room roomInfo;
     private double bookPrice;
     private ArrayList<Integer> occDays;
+    private int discountNum = 0;
 
     /**
      * Constructs a new Reservation object.
@@ -90,8 +91,15 @@ public class Reservation {
      * @return The calculated booking price.
      */
     public double calculateBookPrice() {
-        double totalDays = outDay - inDay;
-        return totalDays * roomInfo.getPricePerNight();
+        switch(discountNum) {
+            //I_WORK_HERE
+            case 1: return getTotalDays() * (roomInfo.getPricePerNight() * 0.9);
+            //STAY4_GET1
+            case 2: return (getTotalDays() - 1) * roomInfo.getPricePerNight();
+            //PAYDAY
+            case 3: return getTotalDays() * roomInfo.getPricePerNight() * 0.93;
+            default: return getTotalDays() * roomInfo.getPricePerNight();
+        }
     }
 
     /**
@@ -102,5 +110,27 @@ public class Reservation {
      */
     public ArrayList<Integer> getOccDays() {
         return occDays;
+    }
+
+    public boolean isPayDay() {
+        for (int i = 0; i < occDays.size(); i++) {
+            if(occDays.get(i) == 15 || occDays.get(i) == 30) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void discountCode (String code) {
+        if(code.equals("I_WORK_HERE") ) {
+            this.discountNum = 1;
+        }
+        else if(code.equals("STAY4_GET1") && getTotalDays() >= 5) {
+            this.discountNum = 2;
+        }
+        else if (code.equals("PAYDAY") && isPayDay() && !(outDay == 15 || outDay == 30)) {
+            this.discountNum = 3;
+        }
     }
 }
