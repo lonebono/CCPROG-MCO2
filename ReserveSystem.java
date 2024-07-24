@@ -74,7 +74,20 @@ public class ReserveSystem {
                 System.out.println("Total number of booked rooms on day " + date + ": " + selectedHotel.getBookedRooms(date));
                 break;
             case 2:
-                System.out.print("Enter room number: ");
+                System.out.println("Enter room number: ");
+                // Shows the roomList
+                ArrayList<Room> roomList = selectedHotel.getRoomList();
+                for (int i = 0; i < roomList.size(); i++){
+                    if(roomList.get(i).getPricePerNight() == selectedHotel.getBasePrice()){
+                        System.out.println("Room " + (i+1) + ": Standard");
+                    }
+                    if(roomList.get(i).getPricePerNight() == (selectedHotel.getBasePrice() * 1.20)){
+                        System.out.println("Room " + (i+1) + ": Deluxe");
+                    }
+                    if(roomList.get(i).getPricePerNight() == (selectedHotel.getBasePrice() * 1.35)){
+                        System.out.println("Room " + (i+1) + ": Executive");
+                    }
+                }
                 int roomNumber = sc.nextInt();
                 sc.nextLine(); // Consume newline
                 Room room = selectedHotel.getRoom(roomNumber);

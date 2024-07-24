@@ -9,6 +9,7 @@ public class Hotel {
     private String hotelName;
     private ArrayList<Room> roomList = new ArrayList<>();
     private ArrayList<Reservation> reservationList = new ArrayList<>();
+    // private ArrayList<DatePrice> datePriceList = new ArrayList<>();
     private double basePrice = 1299.0; // Example base price
 
     /**
@@ -123,11 +124,23 @@ public class Hotel {
                 return;
             }
             basePrice = price;
+            updateRoomPrices();
             System.out.println("Base price has been updated!");
         } else {
             System.out.println("An existing reservation exists. Cannot change base price.");
         }
     }
+
+    private void updateRoomPrices(){
+        for(Room room : roomList){
+            room.setPrice(basePrice);
+        } // goes to every existing room and updates the base prices
+    }
+
+    public double getBasePrice() {
+        return basePrice;
+    }
+
 
     /**
      * Retrieves the name of the hotel.
