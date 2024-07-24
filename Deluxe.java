@@ -1,3 +1,5 @@
+package MCO2.src;
+
 public class Deluxe extends Room {
     Deluxe(int roomNumber) {
         super(roomNumber);
@@ -5,6 +7,6 @@ public class Deluxe extends Room {
 
     @Override
     public double getPricePerNight() {
-        return pricePerNight * 0.2;
+        return super.getPricePerNight() * 1.20; // 20% more than the base price
     }
 }

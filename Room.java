@@ -8,8 +8,8 @@ import java.util.Iterator;
  */
 public class Room {
     private int roomNumber;
-    private double pricePerNight = 1299.0; // Example price
-    private ArrayList<Integer> availability = new ArrayList<>();
+    protected double pricePerNight = 1299.0; // Base Price // changed to protected so Deluxe and Executive can access
+    private ArrayList<Integer> availability = new ArrayList<>(); // is protected in the UML
 
     /**
      * Constructs a room with a specified room number.

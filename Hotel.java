@@ -27,9 +27,32 @@ public class Hotel {
      * Restricts the maximum number of rooms to 50.
      */
     public void createRoom() {
+        // Makes the user first choose the type of room to create
+        System.out.println("Input Room Type:");
+        System.out.println("[1] Standard");
+        System.out.println("[2] Deluxe");
+        System.out.println("[3] Executive");
+        
+        Scanner sc = new Scanner(System.in);
+        int roomTypeChoice = sc.nextInt();
+        sc.nextLine(); // Consumes next line
+
         if (roomList.size() < 50) {
-            roomList.add(new Room(roomList.size() + 1));
-            System.out.println("Created Room Number " + roomList.size());
+            if(roomTypeChoice == 1){
+                roomList.add(new Standard(roomList.size() + 1));
+                System.out.println("Created Standard Room");
+                System.out.println("Created Room Number " + roomList.size());
+            }
+            if(roomTypeChoice == 2){
+                roomList.add(new Deluxe(roomList.size() + 1));
+                System.out.println("Created Deluxe Room");
+                System.out.println("Created Room Number " + roomList.size());
+            }
+            if(roomTypeChoice == 3){
+                roomList.add(new Executive(roomList.size() + 1));
+                System.out.println("Created Executive Room");
+                System.out.println("Created Room Number " + roomList.size());
+            }
         }
     }
 
@@ -73,7 +96,7 @@ public class Hotel {
             roomList.remove(roomChoice - 1);
             System.out.println("Room has been removed");
         }
-        //sc.close();
+        //sc.close(); edited out due to NoSuchElementException
     }
 
     /**
