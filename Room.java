@@ -53,6 +53,20 @@ public class Room {
         return pricePerNight;
     }
 
+    /*public double getPriceWithRate(int day) {
+        return pricePerNight * getPriceRate(day);
+    }*/
+
+    public double getTotalRate(int inDay, int outDay) {
+        double totalRate = 0.0;
+
+        for(int i = inDay - 1; i < outDay; i++) {
+            totalRate += priceRates[i];
+        }
+        
+        return totalRate;
+    }
+
     /**
      * Retrieves the availability list of the room.
      *
@@ -113,7 +127,7 @@ public class Room {
     }
 
     public double getPriceRate(int day) {
-        return priceRates[day];
+        return priceRates[day - 1];
     }
 
     public void setPriceRate(int day, double rate) {

@@ -1,11 +1,14 @@
 package MCO2.src;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Represents a reservation made by a guest for a room in a hotel.
  */
 public class Reservation {
+    Scanner sc = new Scanner(System.in);
+
     private String guestName;
     private int inDay;
     private int outDay;
@@ -87,7 +90,7 @@ public class Reservation {
     public int getTotalDays() {
         return outDay - inDay;
     }
-    
+
     /**
      * Calculates and returns the total booking price based on the number of days
      * stayed and the price per night of the room.
@@ -95,14 +98,16 @@ public class Reservation {
      * @return The calculated booking price.
      */
     public double calculateBookPrice() {
+        discountCode();
+        
         switch(discountNum) {
             //I_WORK_HERE
-            case 1: return getTotalDays() * (roomInfo.getPricePerNight() * 0.9);
+            case 1: return (roomInfo.getPricePerNight() * roomInfo.getTotalRate(inDay, outDay)) * 0.9;
             //STAY4_GET1
-            case 2: return (getTotalDays() - 1) * roomInfo.getPricePerNight();
+            case 2: return roomInfo.getTotalRate(inDay + 1, outDay) * roomInfo.getPricePerNight();
             //PAYDAY
-            case 3: return getTotalDays() * roomInfo.getPricePerNight() * 0.93;
-            default: return getTotalDays() * roomInfo.getPricePerNight();
+            case 3: return (roomInfo.getTotalRate(inDay, outDay) * roomInfo.getPricePerNight()) * 0.93;
+            default: return roomInfo.getTotalRate(inDay, outDay) * roomInfo.getPricePerNight();
         }
     }
 
@@ -126,15 +131,25 @@ public class Reservation {
         return false;
     }
 
-    public void discountCode (String code) {
-        if(code.equals("I_WORK_HERE") ) {
-            this.discountNum = 1;
-        }
-        else if(code.equals("STAY4_GET1") && getTotalDays() >= 5) {
-            this.discountNum = 2;
-        }
-        else if (code.equals("PAYDAY") && isPayDay() && !(outDay == 15 || outDay == 30)) {
-            this.discountNum = 3;
-        }
+    public void discountCode() {
+        String ans;
+        do
+        {
+            System.out.println("Input Discount Code: ");
+            String code = sc.nextLine();
+
+            if(code.equals("I_WORK_HERE") ) {
+                this.discountNum = 1;
+            }
+            else if(code.equals("STAY4_GET1") && getTotalDays() >= 5) {
+                this.discountNum = 2;
+            }
+            else if (code.equals("PAYDAY") && isPayDay() && !(outDay == 15 || outDay == 30)) {
+                this.discountNum = 3;
+            }
+            else System.out.println("Code does not exist\n");
+            System.out.println("Retry? [Y/N]\n");
+            ans = sc.nextLine();
+        } while(ans.equalsIgnoreCase("Y"));  
     }
 }
