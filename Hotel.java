@@ -9,8 +9,8 @@ public class Hotel {
     private String hotelName;
     private ArrayList<Room> roomList = new ArrayList<>();
     private ArrayList<Reservation> reservationList = new ArrayList<>();
-    // private ArrayList<DatePrice> datePriceList = new ArrayList<>();
     private double basePrice = 1299.0; // Example base price
+
 
     /**
      * Constructs a hotel with a specified name.
@@ -34,9 +34,9 @@ public class Hotel {
         System.out.println("[2] Deluxe");
         System.out.println("[3] Executive");
         
-        Scanner sc = new Scanner(System.in);
-        int roomTypeChoice = sc.nextInt();
-        sc.nextLine(); // Consumes next line
+        Scanner createRoom = new Scanner(System.in);
+        int roomTypeChoice = createRoom.nextInt();
+        createRoom.nextLine(); // Consumes next line
 
         if (roomList.size() < 50) {
             if(roomTypeChoice == 1){
@@ -203,10 +203,11 @@ public class Hotel {
      * @param outDay The check-out day.
      */
     public void bookReserve(int inDay, int outDay) {
+        Scanner sc = new Scanner(System.in);
+
         for (Room room : roomList) {
             if (room.isAvailable(inDay, outDay)) {
                 System.out.println("Enter your name: ");
-                Scanner sc = new Scanner(System.in);
                 String guestName = sc.nextLine();
 
                 Reservation reserve = new Reservation(guestName, inDay, outDay, room);
@@ -217,6 +218,7 @@ public class Hotel {
             }
         }
         System.out.println("There are no available rooms for that date. Please create another booking");
+        sc.close();
     }
 
     /**
@@ -289,5 +291,32 @@ public class Hotel {
      */
     public void setHotelName(String newHotelName) {
         this.hotelName = newHotelName;
+    }
+
+    public void printAvailableDaysForPriceChange() {
+        System.out.println("Days available for price rate change:");
+        boolean foundAvailable = false;
+        for (int day = 1; day <= 30; day++) {
+            boolean canChange = true;
+            for (Room room : roomList) {
+                if (!room.isAvailable(day, day + 1)) {
+                    canChange = false;
+                    break;
+                }
+            }
+            if (canChange) {
+                System.out.print(day + " ");
+                foundAvailable = true;
+            }
+        }
+        if (!foundAvailable) {
+            System.out.println("No days available for price rate change.");
+        }
+        System.out.println("");
+    }
+    public void updatePriceRateForDay(int day, double rate) {
+        for (Room room : roomList) {
+            room.setPriceRate(day, rate);
+        }
     }
 }

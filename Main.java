@@ -12,10 +12,10 @@ public class Main {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        // Initialize the ReserveSystem object
-        ReserveSystem reserveSystem = new ReserveSystem();
         // Initialize Scanner object for user input
         Scanner scanOption = new Scanner(System.in);
+        // Initialize the ReserveSystem object
+        ReserveSystem reserveSystem = new ReserveSystem(System.in);
 
         // Loop to display menu and handle user input
         while (true) {

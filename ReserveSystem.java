@@ -8,7 +8,11 @@ import java.util.Scanner;
  */
 public class ReserveSystem {
     private ArrayList<Hotel> hotelList = new ArrayList<>();
-    private Scanner sc = new Scanner(System.in);
+    private Scanner sc;
+
+    public ReserveSystem(Scanner sc){
+        this.sc = sc;
+    }
 
     /**
      * Adds a new hotel to the system.
@@ -152,7 +156,8 @@ public class ReserveSystem {
             System.out.println("[4] Cancel Reservation");
             System.out.println("[5] Change Hotel Name");
             System.out.println("[6] Remove Hotel");
-            System.out.println("[7] Back");
+            System.out.println("[7] Change Day Price Rate");
+            System.out.println("[8] Back");
 
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
@@ -210,8 +215,41 @@ public class ReserveSystem {
                     }
                     hotelList.remove(selectedHotel);
                     System.out.println("Hotel has been removed.");
-                    return; // Exit manage hotel loop
+                    return; // gets out of the method loop
                 case 7:
+                    System.out.println("Setting price rate for specific days:");
+                    selectedHotel.printAvailableDaysForPriceChange();
+                    System.out.println("Enter the day (1-30) you want to modify: "); // is a day -> day basis so not including 31
+                    int day = sc.nextInt();
+                    sc.nextLine(); // Consume newline
+                    if (day < 1 || day > 30) {
+                        System.out.println("Invalid day.");
+                        break;
+                    }
+                    System.out.println("Enter the new price rate (0.5 to 1.5): ");
+                    double rate = sc.nextDouble();
+                    sc.nextLine(); // Consume newline
+                    if (rate < 0.5 || rate > 1.5) {
+                        System.out.println("Invalid price rate.");
+                        break;
+                    }
+                    boolean canChange = true;
+                    for (Room room : selectedHotel.getRoomList()) {
+                        if (!room.isAvailable(day, day + 1)) {
+                            canChange = false;
+                            break;
+                        }
+                    } 
+                    if (canChange) {
+                        for (Room room : selectedHotel.getRoomList()) {
+                            room.setPriceRate(day, rate);
+                        }
+                        System.out.println("Price rate updated successfully.");
+                    } else {
+                        System.out.println("Cannot change price rate for this day as some rooms are reserved.");
+                    }
+                    break;
+                case 8:
                     return; // Go back to the main menu
                 default:
                     System.out.println("Invalid choice.");
@@ -223,6 +261,7 @@ public class ReserveSystem {
      * Books a reservation in a selected hotel for specified check-in and check-out dates.
      */
     public void bookReserve() {
+        Scanner sc = new Scanner(System.in); 
         if (hotelList.isEmpty()) {
             System.out.println("No hotels available.");
             return;
@@ -239,15 +278,25 @@ public class ReserveSystem {
 
         if (hotelChoice < 1 || hotelChoice > hotelList.size()) {
             System.out.println("Invalid choice.");
+            //sc.close();
+            return;
+        }
+
+        if (hotelChoice < 1 || hotelChoice > hotelList.size()) {
+            System.out.println("Invalid choice.");
             return;
         }
 
         Hotel selectedHotel = hotelList.get(hotelChoice - 1);
-        System.out.print("Enter check-in date (1-31): ");
+        System.out.print("Enter check-in date (1-30): ");
         int inDay = sc.nextInt();
-        System.out.print("Enter check-out date (1-31): ");
+        sc.nextLine(); // Consume newline
+
+        System.out.print("Enter check-out date (2-31): ");
         int outDay = sc.nextInt();
         sc.nextLine(); // Consume newline
+
+        //sc.close();
 
         if (selectedHotel.canBookReservation(inDay, outDay)) {
             selectedHotel.bookReserve(inDay, outDay);

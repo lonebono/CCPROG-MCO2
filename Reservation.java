@@ -10,7 +10,7 @@ public class Reservation {
     private int inDay;
     private int outDay;
     private Room roomInfo;
-    private double bookPrice;
+    private double bookPrice; // could be edited out
     private ArrayList<Integer> occDays;
     private int discountNum = 0;
 
