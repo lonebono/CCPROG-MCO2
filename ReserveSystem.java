@@ -8,11 +8,7 @@ import java.util.Scanner;
  */
 public class ReserveSystem {
     private ArrayList<Hotel> hotelList = new ArrayList<>();
-    private Scanner sc;
-
-    public ReserveSystem(Scanner sc){
-        this.sc = sc;
-    }
+    private Scanner sc = new Scanner(System.in);
 
     /**
      * Adds a new hotel to the system.
@@ -278,7 +274,6 @@ public class ReserveSystem {
 
         if (hotelChoice < 1 || hotelChoice > hotelList.size()) {
             System.out.println("Invalid choice.");
-            //sc.close();
             return;
         }
 
