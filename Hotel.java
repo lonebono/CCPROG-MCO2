@@ -74,7 +74,7 @@ public class Hotel {
             }
             if (removable) {
                 removableRooms.add(i + 1);
-                System.out.println("Room " + (i + 1));
+                System.out.println("Room " + (i+1) + ": " + roomList.get(i).getRoomType());
             }
         }
 
@@ -141,7 +141,6 @@ public class Hotel {
         return basePrice;
     }
 
-
     /**
      * Retrieves the name of the hotel.
      *
@@ -205,17 +204,30 @@ public class Hotel {
     public void bookReserve(int inDay, int outDay) {
         Scanner sc = new Scanner(System.in);
 
-        for (Room room : roomList) {
-            if (room.isAvailable(inDay, outDay)) {
-                System.out.println("Enter your name: ");
-                String guestName = sc.nextLine();
+      if (canBookReservation(inDay, outDay)) {
+            System.out.println("Enter your name: ");
+            String guestName = sc.nextLine();
 
-                Reservation reserve = new Reservation(guestName, inDay, outDay, room);
+		for (Room room : roomList) {
+            	if (room.isAvailable(inDay, outDay)) {
+				System.out.println("Available Rooms:");
+				System.out.println("Room " + (i+1) + ": " + room.getRoomType());
+            	}		
+		}
+		
+		int roomChoice;
+		do
+		{
+			System.out.println("Select a valid room number: ");
+                	roomChoice = sc.nextInt();
+		} while(!roomList.get(roomChoice-1).isAvailable(inDay, outDay));
+
+                Reservation reserve = new Reservation(guestName, inDay, outDay, roomList.get(roomChoice-1));
                 reservationList.add(reserve);
                 System.out.println("Reservation has been booked");
                 //sc.close(); this causes the error
                 return;
-            }
+            
         }
         System.out.println("There are no available rooms for that date. Please create another booking");
         sc.close();
