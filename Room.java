@@ -53,10 +53,6 @@ public class Room {
         return pricePerNight;
     }
 
-    /*public double getPriceWithRate(int day) {
-        return pricePerNight * getPriceRate(day);
-    }*/
-
     public double getTotalRate(int inDay, int outDay) {
         double totalRate = 0.0;
 
