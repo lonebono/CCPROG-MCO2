@@ -1,10 +1,16 @@
 package MCO2.src;
 
 public class Deluxe extends Room {
+private String roomType = “DELUXE”;
+
     Deluxe(int roomNumber) {
         super(roomNumber);
         setPrice(getPricePerNight()); //initialises price of the room based on the base price
     }
+
+	public String getRoomType() {
+		return roomType;
+	}
 
     @Override
     public void setPrice(double newPrice) {
