@@ -15,7 +15,7 @@ public class Main {
         // Initialize Scanner object for user input
         Scanner scanOption = new Scanner(System.in);
         // Initialize the ReserveSystem object
-        ReserveSystem reserveSystem = new ReserveSystem(System.in);
+        ReserveSystem reserveSystem = new ReserveSystem();
 
         // Loop to display menu and handle user input
         while (true) {
@@ -26,10 +26,16 @@ public class Main {
             System.out.println("[4] Book Reservation");
             System.out.println("[5] Quit");
 
-            System.out.print("Enter your choice: ");
-            // Read user's choice
-            int choice = scanOption.nextInt();
-            scanOption.nextLine(); // Consume newline after integer input
+            int choice = 0;
+            try {
+                System.out.print("Enter your choice: ");
+                // Read user's choice
+                choice = scanOption.nextInt();
+                scanOption.nextLine(); // Consume newline after integer input
+            } catch (Exception e) {
+                System.out.println("An error occurred: " + e.getMessage());
+                e.printStackTrace(); // Prints the stack trace to the console
+            }
 
             switch (choice) {
                 case 1:
