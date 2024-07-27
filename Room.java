@@ -128,7 +128,7 @@ public class Room {
 
     public void setPriceRate(int day, double rate) {
         if (day >= 1 && day <= 30) {
-            priceRates[day] = rate;
+            priceRates[day-1] = rate;
         }
     }
 }
