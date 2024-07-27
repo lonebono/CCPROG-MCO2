@@ -213,7 +213,7 @@ public class Hotel {
                 Reservation reserve = new Reservation(guestName, inDay, outDay, room);
                 reservationList.add(reserve);
                 System.out.println("Reservation has been booked");
-                sc.close();
+                //sc.close(); this causes the error
                 return;
             }
         }
