@@ -67,7 +67,7 @@ public class ReserveSystem {
 
         switch (infoChoice) {
             case 1:
-                System.out.print("Enter a date (1-31): ");
+                System.out.print("Enter a date (1-30): ");
                 int date = sc.nextInt();
                 sc.nextLine(); // Consume newline
                 System.out.println("Total number of available rooms on day " + date + ": " + selectedHotel.getAvailableRooms(date));
@@ -271,11 +271,6 @@ public class ReserveSystem {
         System.out.print("Select a hotel to book a reservation: ");
         int hotelChoice = sc.nextInt();
         sc.nextLine(); // Consume newline
-
-        if (hotelChoice < 1 || hotelChoice > hotelList.size()) {
-            System.out.println("Invalid choice.");
-            return;
-        }
 
         if (hotelChoice < 1 || hotelChoice > hotelList.size()) {
             System.out.println("Invalid choice.");

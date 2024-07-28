@@ -189,6 +189,7 @@ public class Hotel {
     public void removeRoom() {
         System.out.println("Available rooms to remove:");
         ArrayList<Integer> removableRooms = new ArrayList<>();
+
         for (int i = 0; i < roomList.size(); i++) {
             boolean removable = true;
             for (Reservation res : reservationList) {
@@ -201,6 +202,11 @@ public class Hotel {
                 removableRooms.add(i + 1);
                 System.out.println("Room " + (i+1) + ": " + roomList.get(i).getRoomType());
             }
+        }
+
+        if (removableRooms.size() == 1) {
+            System.out.println("Cannot remove last room");
+            return;
         }
 
         System.out.println("Remove Room: ");
@@ -238,7 +244,7 @@ public class Hotel {
      */
     public void cancelReserve(Reservation reservation) {
         reservationList.remove(reservation);
-        reservation.getRoomInfo().changeAvail(reservation.getInDay(), reservation.getOutDay());
+        reservation.getRoomInfo().addAvail(reservation.getInDay(), reservation.getOutDay());
     }
 
     /**
@@ -271,11 +277,11 @@ public class Hotel {
             System.out.println("Enter your name: ");
             String guestName = sc.nextLine();
 
+            System.out.println("Available Rooms:");
         
         for (int i = 0; i < roomList.size(); i++) {
             Room room = roomList.get(i);
             if (room.isAvailable(inDay, outDay)) {
-                System.out.println("Available Rooms:");
                 System.out.println("Room " + (i + 1) + ": " + room.getRoomType());
             }
         }

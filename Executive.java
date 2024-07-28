@@ -1,10 +1,9 @@
 package MCO2.src;
 
 public class Executive extends Room {
-private String roomType = "EXECUTIVE";
-
     Executive(int roomNumber) {
         super(roomNumber);
+        this.roomType = "EXECUTIVE";
         setPrice(getPricePerNight()); //initialises price of the room based on the base price
     }
 

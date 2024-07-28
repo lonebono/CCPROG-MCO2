@@ -10,8 +10,8 @@ public class Room {
     private int roomNumber;
     protected double pricePerNight = 1299.0; // Base Price // changed to protected so Deluxe and Executive can access
     private ArrayList<Integer> availability = new ArrayList<>(); // private works
-    private double[] priceRates = new double[31]; // array to hold price rates for each day
-    private String roomType;
+    private double[] priceRates = new double[30]; // array to hold price rates for each day | day 31 is not included since day 31 cannot be booked in
+    protected String roomType;
 
     /**
      * Constructs a room with a specified room number.
@@ -21,8 +21,8 @@ public class Room {
      */
     public Room(int roomNumber) {
         this.roomNumber = roomNumber;
-        for (int i = 1; i <= 30; i++) { // Changed to 30 to prevent check-in on day 31
-            availability.add(i);
+        for (int i = 0; i < 30; i++) { // Changed to 30 to prevent check-in on day 31
+            availability.add(i+1);
             priceRates[i] = 1.0; //initialise to 100% at room creation
         }
     }
@@ -71,7 +71,7 @@ public class Room {
     public double getTotalRate(int inDay, int outDay) {
         double totalRate = 0.0;
 
-        for(int i = inDay - 1; i < outDay; i++) {
+        for(int i = inDay - 1; i < outDay - 1; i++) {
             totalRate += priceRates[i];
         }
         
@@ -127,7 +127,7 @@ public class Room {
      * @param in  The check-in day.
      * @param out The check-out day.
      */
-    public void changeAvail(int in, int out) {
+    public void removeAvail(int in, int out) {
         Iterator<Integer> iterator = availability.iterator();
         while (iterator.hasNext()) {
             int day = iterator.next();
@@ -136,4 +136,11 @@ public class Room {
             }
         }
     }
+
+    public void addAvail(int in, int out) {
+        for(int i = 0; i < out - in; i++) {
+            availability.add(in - 1, in);
+            in++;
+        }
+    } 
 }
