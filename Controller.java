@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Controller implements ActionListener{
-    private OverallGUIDriver guiDriver;
+    private MainGUI guiDriver;
 
     @Override
     public void actionPerformed(ActionEvent e) {

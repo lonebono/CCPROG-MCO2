@@ -43,6 +43,15 @@ public class Reservation {
     }
 
     /**
+     * Retrieves the guest's name associated with the reservation.
+     *
+     * @return The guest's name.
+     */
+    public String getGuestName() {
+        return guestName;
+    }
+
+    /**
      * Retrieves the day of check-in.
      *
      * @return The day of check-in.
@@ -70,15 +79,6 @@ public class Reservation {
     }
 
     /**
-     * Retrieves the guest's name associated with the reservation.
-     *
-     * @return The guest's name.
-     */
-    public String getGuestName() {
-        return guestName;
-    }
-
-    /**
      * Retrieves the Room object associated with the reservation.
      *
      * @return The Room object.
@@ -89,6 +89,16 @@ public class Reservation {
 
     public int getTotalDays() {
         return outDay - inDay;
+    }
+
+    /**
+     * Retrieves the list of days (as integers) that the room is occupied during
+     * the reservation period.
+     *
+     * @return The list of occupied days.
+     */
+    public ArrayList<Integer> getOccDays() {
+        return occDays;
     }
     
     /**
@@ -109,16 +119,6 @@ public class Reservation {
             case 3: return (roomInfo.getTotalRate(inDay, outDay) * roomInfo.getPricePerNight()) * 0.93;
             default: return roomInfo.getTotalRate(inDay, outDay) * roomInfo.getPricePerNight();
         }
-    }
-
-    /**
-     * Retrieves the list of days (as integers) that the room is occupied during
-     * the reservation period.
-     *
-     * @return The list of occupied days.
-     */
-    public ArrayList<Integer> getOccDays() {
-        return occDays;
     }
 
     public boolean isPayDay() {

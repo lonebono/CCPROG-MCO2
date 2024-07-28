@@ -9,8 +9,9 @@ import java.util.Iterator;
 public class Room {
     private int roomNumber;
     protected double pricePerNight = 1299.0; // Base Price // changed to protected so Deluxe and Executive can access
-    private ArrayList<Integer> availability = new ArrayList<>(); // is protected in the UML
+    private ArrayList<Integer> availability = new ArrayList<>(); // private works
     private double[] priceRates = new double[31]; // array to hold price rates for each day
+    private String roomType;
 
     /**
      * Constructs a room with a specified room number.
@@ -35,6 +36,12 @@ public class Room {
         this.pricePerNight = newPrice;
     }
 
+    public void setPriceRate(int day, double rate) {
+        if (day >= 1 && day <= 30) {
+            priceRates[day-1] = rate;
+        }
+    }
+
     /**
      * Retrieves the room number.
      *
@@ -42,6 +49,14 @@ public class Room {
      */
     public int getRoomNumber() {
         return roomNumber;
+    }
+
+    public String getRoomType() {
+		return roomType;
+	}
+    
+    public double getPriceRate(int day) {
+        return priceRates[day - 1];
     }
 
     /**
@@ -119,16 +134,6 @@ public class Room {
             if (day >= in && day < out) {
                 iterator.remove();
             }
-        }
-    }
-
-    public double getPriceRate(int day) {
-        return priceRates[day - 1];
-    }
-
-    public void setPriceRate(int day, double rate) {
-        if (day >= 1 && day <= 30) {
-            priceRates[day-1] = rate;
         }
     }
 }
