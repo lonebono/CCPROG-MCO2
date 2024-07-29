@@ -51,26 +51,60 @@ public class GUIController implements ActionListener{
         // Hotel Creation Panel
         JPanel card1 = new JPanel(new BorderLayout());
         JPanel createList = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(0, 0, 10, 0); // Padding // top left bot right
-        gbc.fill = GridBagConstraints.BOTH; // Fill horizontally
+        JPanel createInput = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcList = new GridBagConstraints();
+        gbcList.insets = new Insets(0, 0, 10, 0); // Padding // top left bot right
+        gbcList.fill = GridBagConstraints.BOTH; // Fill horizontally
+        GridBagConstraints gbcInput = new GridBagConstraints();
+        gbcInput.insets = new Insets(0, 0, 10, 0);
+        // i don't want to take the entire space i want it centered // no .fill for now 
 
         card1.setBackground(Color.GRAY);
+        //createList
         createList.setPreferredSize(new Dimension(400, 600));
         card1.add(createList, BorderLayout.WEST);
         JLabel createLabelInfo = new JLabel("Hotel Creation Info", JLabel.CENTER);
-        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.05; gbc.weighty = 0.05; 
-        createList.add(createLabelInfo, gbc); // adds the label
+        gbcList.gridx = 0; gbcList.gridy = 0; gbcList.weightx = 0.05; gbcList.weighty = 0.05; 
+        createList.add(createLabelInfo, gbcList); // adds the label
         JTextArea createTextInfo = new JTextArea();
+        createTextInfo.setEditable(false);
         createTextInfo.setLineWrap(true);
         JScrollPane infoScroll = new JScrollPane(createTextInfo); // Wrap text field in scroll pane
         infoScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         infoScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0.3; gbc.weighty = 0.3;
-        createList.add(infoScroll, gbc); // adds the info list
+        gbcList.gridx = 0; gbcList.gridy = 1; gbcList.weightx = 0.3; gbcList.weighty = 0.3;
+        createList.add(infoScroll, gbcList); // adds the info list
+        //createInput
+        createInput.setPreferredSize(new Dimension(400,600));
+        card1.add(createInput, BorderLayout.EAST);
+        JLabel createFeedbackLabel= new JLabel("Feedback:", JLabel.CENTER);
+        gbcInput.gridx = 0; gbcInput.gridy = 0;
+        createInput.add(createFeedbackLabel, gbcInput);
+        JTextField inputFeedback = new JTextField(15);
+        gbcInput.gridx = 1; gbcInput.gridy = 0;
+        createInput.add(inputFeedback, gbcInput);
+        JLabel createInputLabel= new JLabel("Input Information Below:", JLabel.CENTER);
+        gbcInput.gridx = 0; gbcInput.gridy = 1; gbcInput.gridwidth = 2;
+        createInput.add(createInputLabel, gbcInput);
+        gbcInput.gridwidth = 1; //resets gridwidth
+        JLabel inputHotelLabel = new JLabel("Hotel Name:", JLabel.CENTER);
+        gbcInput.gridx = 0; gbcInput.gridy = 2; 
+        createInput.add(inputHotelLabel, gbcInput);
+        JTextField inputHotelName = new JTextField(15);
+        gbcInput.gridx = 1; gbcInput.gridy = 2;
+        createInput.add(inputHotelName, gbcInput);
+        JLabel createRoomLabel = new JLabel("Room Type:", JLabel.CENTER);
+        gbcInput.gridx = 0; gbcInput.gridy = 3;
+        createInput.add(createRoomLabel, gbcInput);
+        JTextField createRoomType = new JTextField(15);
+        gbcInput.gridx = 1; gbcInput.gridy = 3;
+        createInput.add(createRoomType, gbcInput);
+        JButton createHotelSubmit = new JButton("Submit");
+        gbcInput.gridx = 0; gbcInput.gridy = 4; gbcInput.gridwidth = 2;
+        createInput.add(createHotelSubmit, gbcInput);
+        
 
-        card1.add(new JButton("East"), BorderLayout.EAST);
-
+        //View Hotel Panel
         JPanel card2 = new JPanel(new BorderLayout());
         card2.setBackground(Color.GREEN);
         card2.add(new JButton("East"), BorderLayout.EAST);
