@@ -104,9 +104,82 @@ public class GUIController implements ActionListener{
 
         //View Hotel Panel
         JPanel card2 = new JPanel(new BorderLayout());
+
+        //Left Pane
+        JPanel hotelViewList = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcHotelViewList = new GridBagConstraints();
+        gbcHotelViewList.insets = new Insets(0, 0, 10, 0);
+
+        //Right Pane
+        JPanel hotelViewInput = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcHotelViewInput = new GridBagConstraints();
+        gbcHotelViewInput.insets = new Insets(0, 0, 10, 0);
+
         card2.setBackground(Color.GREEN);
-        card2.add(new JButton("East"), BorderLayout.EAST);
-        card2.add(new JButton("West"), BorderLayout.WEST);
+
+        //Selecting Hotel to View
+        hotelViewList.setPreferredSize(new Dimension(400, 600));
+        card2.add(hotelViewList, BorderLayout.WEST);
+        JLabel viewHotelLabel = new JLabel("Select Hotel: ");
+        gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 0; 
+        hotelViewList.add(viewHotelLabel, gbcHotelViewList);
+        JComboBox viewHotels = new JComboBox<>();
+        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 0; 
+        viewHotels.setPreferredSize(new Dimension(200, 30));
+        hotelViewList.add(viewHotels, gbcHotelViewList);
+
+        JButton highLevel = new JButton("High-Level");
+        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 2;
+        gbcHotelViewList.fill = GridBagConstraints.HORIZONTAL;
+        hotelViewList.add(highLevel, gbcHotelViewList);
+
+        JButton lowLevel = new JButton("Low-Level");
+        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 3;
+        gbcHotelViewList.fill = GridBagConstraints.HORIZONTAL;
+        hotelViewList.add(lowLevel, gbcHotelViewList);
+
+
+
+        //Selecting low level type of information
+        JLabel lowLevelOption = new JLabel("Low-Level Options: ");
+        gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 4; 
+        hotelViewList.add(lowLevelOption, gbcHotelViewList);
+        JComboBox lowOptions = new JComboBox<>();
+        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 4; 
+        lowOptions.setPreferredSize(new Dimension(200, 30));
+        hotelViewList.add(lowOptions, gbcHotelViewList);        
+
+        //Low-Level Info View Rooms for Date
+        hotelViewInput.setPreferredSize(new Dimension(400, 600));
+        card2.add(hotelViewInput, BorderLayout.EAST);
+        JLabel hotelViewDate = new JLabel("Select a Date: ");
+        gbcHotelViewInput.gridx = 0; gbcHotelViewInput.gridy = 1;
+        hotelViewInput.add(hotelViewDate, gbcHotelViewInput);
+        JComboBox viewDate = new JComboBox<>();
+        gbcHotelViewInput.gridx = 1; gbcHotelViewInput.gridy = 1;
+        viewDate.setPreferredSize(new Dimension(200, 30));
+        hotelViewInput.add(viewDate, gbcHotelViewInput);
+
+        //Low-Level Info View Rooms Info
+        JLabel roomViewInfo = new JLabel("Select a Room: ");
+        gbcHotelViewInput.gridx = 0; gbcHotelViewInput.gridy = 2;
+        hotelViewInput.add(roomViewInfo, gbcHotelViewInput);
+        JComboBox viewRoom = new JComboBox<>();
+        gbcHotelViewInput.gridx = 1; gbcHotelViewInput.gridy = 2;
+        viewRoom.setPreferredSize(new Dimension(200, 30));
+        hotelViewInput.add(viewRoom, gbcHotelViewInput);
+
+        //Low-Level Info View Reservation Info
+        JLabel reservationViewInfo = new JLabel("Select a Reservation: ");
+        gbcHotelViewInput.gridx = 0; gbcHotelViewInput.gridy = 3;
+        hotelViewInput.add(reservationViewInfo, gbcHotelViewInput);
+        JComboBox viewReserve = new JComboBox<>();
+        gbcHotelViewInput.gridx = 1; gbcHotelViewInput.gridy = 3;
+        viewReserve.setPreferredSize(new Dimension(200, 30));
+        hotelViewInput.add(viewReserve, gbcHotelViewInput);
+
+        //card2.add(new JButton("East"), BorderLayout.EAST);
+        //card2.add(new JButton("West"), BorderLayout.WEST);
 
         //Manage Hotel Panel
         JPanel card3 = new JPanel(new BorderLayout());
