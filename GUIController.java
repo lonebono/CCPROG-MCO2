@@ -207,14 +207,14 @@ public class GUIController implements ActionListener{
         bookList.add(bookHotelLabel, gbcBookList);
         JComboBox bookHotels = new JComboBox<>();
         gbcBookList.gridx = 1; gbcBookList.gridy = 0;
-        bookHotels.setPreferredSize(new Dimension(200, 30));
+        bookHotels.setPreferredSize(new Dimension(200, 20));
         bookList.add(bookHotels, gbcBookList);
         JLabel bookRoomsLabel = new JLabel("Select Room: ");
         gbcBookList.gridx = 0; gbcBookList.gridy = 1;
         bookList.add(bookRoomsLabel, gbcBookList);
         JComboBox bookRooms = new JComboBox<>();
         gbcBookList.gridx = 1; gbcBookList.gridy = 1;
-        bookRooms.setPreferredSize(new Dimension(200, 30));
+        bookRooms.setPreferredSize(new Dimension(200, 20));
         bookList.add(bookRooms, gbcBookList);
 
         //Booking Input
