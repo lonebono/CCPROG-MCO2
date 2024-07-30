@@ -56,10 +56,18 @@ public class MainGUIView extends JFrame {
         cardPanel.add(card, name);
     }
 
-    public JButton getBtnCreate() { return btnCreate; }
-    public JButton getBtnView() { return btnView; }
-    public JButton getBtnManage() { return btnManage; }
-    public JButton getBtnBook() { return btnBook; }
+    public JButton getBtnCreate() { 
+        return btnCreate; 
+    }
+    public JButton getBtnView() { 
+        return btnView; 
+    }
+    public JButton getBtnManage() { 
+        return btnManage; 
+    }
+    public JButton getBtnBook() { 
+        return btnBook; 
+    }
 
     public void showCard(String name) {
         CardLayout cl = (CardLayout) (cardPanel.getLayout());
