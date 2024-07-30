@@ -1,6 +1,5 @@
 package MCO2.src;
 
-import javax.sound.sampled.Control;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +9,7 @@ public class CreateHotelGUI extends JPanel{
     private JTextArea createTextInfo;
     private JTextField inputFeedback, inputHotelName, createRoomType;
     private JButton createHotelSubmit;
-    
+
     // Hotel Creation Panel
     public CreateHotelGUI(){
         setLayout(new BorderLayout());
@@ -26,10 +25,10 @@ public class CreateHotelGUI extends JPanel{
         //createList
         createList.setPreferredSize(new Dimension(400, 600));
         add(createList, BorderLayout.WEST);
-        JLabel createLabelInfo = new JLabel("Hotel Creation Info", JLabel.CENTER);
+        JLabel createLabelInfo = new JLabel("Hotel List Info", JLabel.CENTER);
         gbcCreateList.gridx = 0; gbcCreateList.gridy = 0; gbcCreateList.weightx = 0.05; gbcCreateList.weighty = 0.05; 
         createList.add(createLabelInfo, gbcCreateList); // adds the label
-        JTextArea createTextInfo = new JTextArea();
+        createTextInfo = new JTextArea();
         createTextInfo.setEditable(false);
         createTextInfo.setLineWrap(true);
         JScrollPane infoScroll = new JScrollPane(createTextInfo); // Wrap text field in scroll pane
@@ -43,22 +42,23 @@ public class CreateHotelGUI extends JPanel{
         JLabel createFeedbackLabel= new JLabel("Feedback:", JLabel.CENTER);
         gbcCreateInput.gridx = 0; gbcCreateInput.gridy = 0;
         createInput.add(createFeedbackLabel, gbcCreateInput);
-        JTextField inputFeedback = new JTextField(15);
+        inputFeedback = new JTextField(15);
+        inputFeedback.setEditable(false);
         gbcCreateInput.gridx = 1; gbcCreateInput.gridy = 0;
         createInput.add(inputFeedback, gbcCreateInput);
         JLabel inputHotelLabel = new JLabel("Hotel Name:", JLabel.CENTER);
         gbcCreateInput.gridx = 0; gbcCreateInput.gridy = 1; 
         createInput.add(inputHotelLabel, gbcCreateInput);
-        JTextField inputHotelName = new JTextField(15);
+        inputHotelName = new JTextField(15);
         gbcCreateInput.gridx = 1; gbcCreateInput.gridy = 1;
         createInput.add(inputHotelName, gbcCreateInput);
         JLabel createRoomLabel = new JLabel("Room Type:", JLabel.CENTER);
         gbcCreateInput.gridx = 0; gbcCreateInput.gridy = 2;
         createInput.add(createRoomLabel, gbcCreateInput);
-        JTextField createRoomType = new JTextField(15);
+        createRoomType = new JTextField(15);
         gbcCreateInput.gridx = 1; gbcCreateInput.gridy = 2;
         createInput.add(createRoomType, gbcCreateInput);
-        JButton createHotelSubmit = new JButton("Submit");
+        createHotelSubmit = new JButton("Submit");
         gbcCreateInput.gridx = 0; gbcCreateInput.gridy = 3; gbcCreateInput.gridwidth = 2;
         createInput.add(createHotelSubmit, gbcCreateInput);
         }

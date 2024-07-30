@@ -20,7 +20,6 @@ public class Hotel {
      */
     public Hotel(String hotelName) {
         this.hotelName = hotelName;
-        createRoom(); // call create room since room minimum is 1
     }
 
     /**
@@ -152,32 +151,16 @@ public class Hotel {
      * Creates a new room and adds it to the hotel's room list.
      * Restricts the maximum number of rooms to 50.
      */
-    public void createRoom() {
-        // Makes the user first choose the type of room to create
-        System.out.println("Input Room Type:");
-        System.out.println("[1] Standard");
-        System.out.println("[2] Deluxe");
-        System.out.println("[3] Executive");
-        
-        Scanner createRoom = new Scanner(System.in);
-        int roomTypeChoice = createRoom.nextInt();
-        createRoom.nextLine(); // Consumes next line
-
+    public void createRoom(String roomType) { 
         if (roomList.size() < 50) {
-            if(roomTypeChoice == 1){
+            if(roomType.equalsIgnoreCase("Standard")){
                 roomList.add(new Standard(roomList.size() + 1));
-                System.out.println("Created Standard Room");
-                System.out.println("Created Room Number " + roomList.size());
             }
-            if(roomTypeChoice == 2){
+            if(roomType.equalsIgnoreCase("Deluxe")){
                 roomList.add(new Deluxe(roomList.size() + 1));
-                System.out.println("Created Deluxe Room");
-                System.out.println("Created Room Number " + roomList.size());
             }
-            if(roomTypeChoice == 3){
+            if(roomType.equalsIgnoreCase("Executive")){
                 roomList.add(new Executive(roomList.size() + 1));
-                System.out.println("Created Executive Room");
-                System.out.println("Created Room Number " + roomList.size());
             }
         }
     }

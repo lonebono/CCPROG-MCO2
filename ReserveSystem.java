@@ -10,20 +10,20 @@ public class ReserveSystem {
     private ArrayList<Hotel> hotelList = new ArrayList<>();
     private Scanner sc = new Scanner(System.in);
 
+    public ArrayList<Hotel> getHotelList() {
+        return hotelList;
+    }
+
     /**
      * Adds a new hotel to the system.
      */
-    public void addHotel() {
-        System.out.print("Enter the name of the new hotel: ");
-        String hotelName = sc.nextLine();
-
+    public void addHotel(String inputHotelName) {
+        String hotelName = inputHotelName;
         for (Hotel hotel : hotelList) {
             if (hotel.getHotelName().equalsIgnoreCase(hotelName)) {
-                System.out.println("A hotel with this name already exists.");
                 return;
             }
         }
-
         hotelList.add(new Hotel(hotelName));
         System.out.println("Hotel " + hotelName + " has been added.");
     }
@@ -161,7 +161,7 @@ public class ReserveSystem {
 
             switch (choice) {
                 case 1:
-                    selectedHotel.createRoom();
+                    //selectedHotel.createRoom();
                     break;
                 case 2:
                     selectedHotel.removeRoom();

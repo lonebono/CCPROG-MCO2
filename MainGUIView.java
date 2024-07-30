@@ -54,6 +54,7 @@ public class MainGUIView extends JFrame {
 
     public void addCard(JPanel card, String name) {
         cardPanel.add(card, name);
+        System.out.println("Added card with name: " + name);
     }
 
     public JButton getBtnCreate() { 
@@ -71,6 +72,7 @@ public class MainGUIView extends JFrame {
 
     public void showCard(String name) {
         CardLayout cl = (CardLayout) (cardPanel.getLayout());
+        System.out.println("Showing card with name: " + name);
         cl.show(cardPanel, name);
     }
 }

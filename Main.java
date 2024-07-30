@@ -16,7 +16,7 @@ public class Main {
         Scanner scanOption = new Scanner(System.in);
         // Initialize the ReserveSystem object
         ReserveSystem reserveSystem = new ReserveSystem();
-
+        /* 
         // Loop to display menu and handle user input
         while (true) {
             System.out.println("\nHotel Reservation System");
@@ -63,7 +63,8 @@ public class Main {
                 default:
                     // Handle invalid input
                     System.out.println("Invalid choice. Please enter a valid option.");
+                    
             }
-        }
+        }*/
     }
 }

@@ -8,25 +8,25 @@ import java.awt.event.ActionListener;
 
 public class GUIController implements ActionListener{
     private MainGUIView view;
-    private Main model;
+    private ReserveSystem reserveSystem;
     private CreateHotelGUI createHotelGUI;
     private ViewHotelGUI viewHotelGUI;
     private ManageHotelGUI manageHotelGUI;
     private BookRoomGUI bookRoomGUI;
 
-    public GUIController(MainGUIView view, Main model){
+    public GUIController(MainGUIView view, ReserveSystem reserveSystem){
         this.view = view;
-        this.model = model;
+        this.reserveSystem = reserveSystem;
         
         createHotelGUI = new CreateHotelGUI();
         viewHotelGUI = new ViewHotelGUI();
         manageHotelGUI = new ManageHotelGUI();
         bookRoomGUI = new BookRoomGUI();
 
-        view.add(createHotelGUI, "Create");
-        view.add(viewHotelGUI, "View");
-        view.add(manageHotelGUI, "Manage");
-        view.add(bookRoomGUI, "Book");
+        view.addCard( createHotelGUI, "Create");
+        view.addCard(viewHotelGUI, "View");
+        view.addCard(manageHotelGUI, "Manage");
+        view.addCard(bookRoomGUI, "Book");
 
         // add action listeners to buttons
         view.getBtnCreate().addActionListener(new ActionListener() {
@@ -63,13 +63,21 @@ public class GUIController implements ActionListener{
                 handleCreateHotelSubmit();
             }
         });
-
     }
 
     private void updateCreateHotelView() {
-        // Add logic to update the CreateHotelView, if needed
-        // For example, you can reset fields or update information
-        //createHotelGUI.getCreateTextInfo().setText("Fill out the form to create a new hotel."); example line
+        // Add logic to update the ViewHotelView
+        // For example, create a hotel
+        // Clear input fields
+        createHotelGUI.getInputHotelName().setText(""); 
+        createHotelGUI.getCreateRoomType().setText(""); 
+
+        // Update the hotel list
+        String hotelListText = "";
+        for (Hotel hotel : reserveSystem.getHotelList()) {
+            hotelListText += hotel.getHotelName() + "\n";
+        }
+        createHotelGUI.getCreateTextInfo().setText(hotelListText);
     }
 
     private void updateViewHotelView() {
@@ -92,26 +100,38 @@ public class GUIController implements ActionListener{
 
     private void handleCreateHotelSubmit() {
         // Extract data from CreateHotelView
-        //String hotelName = createHotelGUI.getInputHotelName().getText();
-        //String roomType = createHotelGUI.getCreateRoomType().getText();
-        //String feedback = createHotelGUI.getInputFeedback().getText();
+        String hotelName = createHotelGUI.getInputHotelName().getText().trim();
+        String roomType = createHotelGUI.getCreateRoomType().getText().trim();
+        if (hotelName.isEmpty()) {
+            createHotelGUI.getInputFeedback().setText("Hotel name cannot be empty.");
+            return;
+        }
+        // Check if hotel already exists
+        if (reserveSystem.getHotelList().stream().anyMatch(hotel -> hotel.getHotelName().equalsIgnoreCase(hotelName))) {
+            createHotelGUI.getInputFeedback().setText("Hotel already exists.");
+            return;
+        }
+        // Check if room type is valid
+        if (!isValidRoomType(roomType)) {
+            createHotelGUI.getInputFeedback().setText("Invalid room type.");
+            return;
+        }
+        // Add hotel to the model
+        reserveSystem.addHotel(hotelName);
 
-        // Validate inputs
-        //if (hotelName.isEmpty() || roomType.isEmpty()) {
-        //    createHotelView.getCreateTextInfo().append("Please fill in all fields.\n");
-        //    return;
-        //}
+        // Find the newly added hotel and add room to it
+        for (Hotel hotel : reserveSystem.getHotelList()) {
+            if (hotel.getHotelName().equalsIgnoreCase(hotelName)) {
+                hotel.createRoom(roomType);
+                break;
+            }
+        }   
+        createHotelGUI.getInputFeedback().setText("Hotel successfully added");
+        updateCreateHotelView();
+    }
 
-        // Create a new hotel using the model
-        //model.createHotel(hotelName, roomType);
-
-        // Provide feedback to the user
-        //createHotelGUI.getCreateTextInfo().append("Hotel created: " + hotelName + " with room type: " + roomType + "\n");
-
-        // Optionally, reset fields
-        //createHotelView.getInputHotelName().setText("");
-        //createHotelView.getCreateRoomType().setText("");
-        //createHotelView.getInputFeedback().setText("");
+    private boolean isValidRoomType(String roomType) {
+        return roomType.equalsIgnoreCase("Standard") || roomType.equalsIgnoreCase("Deluxe") || roomType.equalsIgnoreCase("Executive");
     }
 
     @Override
@@ -120,90 +140,17 @@ public class GUIController implements ActionListener{
         // It's a placeholder for future implementation or can be removed
     }
     
-    public void updateView(){
+    //public void updateView(){
         // Create different panels with BorderLayout for CardLayout
-
-        //Book Reservation Panel
-        //Panels
-        JPanel card4 = new JPanel(new BorderLayout());
-        JPanel bookList = new JPanel(new GridBagLayout());
-        GridBagConstraints gbcBookList = new GridBagConstraints();
-        gbcBookList.insets = new Insets(0, 0, 10, 0);
-        JPanel bookInput = new JPanel(new GridBagLayout());
-        GridBagConstraints gbcBookInput = new GridBagConstraints();
-        gbcBookInput.insets = new Insets(0, 0, 10, 0);
-
-        card4.setBackground(Color.GRAY);
-        //Booking Information
-        bookList.setPreferredSize(new Dimension(400, 600));
-        card4.add(bookList, BorderLayout.WEST);
-        JLabel bookHotelLabel = new JLabel("Select Hotel: ");
-        gbcBookList.gridx = 0; gbcBookList.gridy = 0; 
-        bookList.add(bookHotelLabel, gbcBookList);
-        JComboBox bookHotels = new JComboBox<>();
-        gbcBookList.gridx = 1; gbcBookList.gridy = 0;
-        bookHotels.setPreferredSize(new Dimension(200, 20));
-        bookList.add(bookHotels, gbcBookList);
-        JLabel bookRoomsLabel = new JLabel("Select Room: ");
-        gbcBookList.gridx = 0; gbcBookList.gridy = 1;
-        bookList.add(bookRoomsLabel, gbcBookList);
-        JComboBox bookRooms = new JComboBox<>();
-        gbcBookList.gridx = 1; gbcBookList.gridy = 1;
-        bookRooms.setPreferredSize(new Dimension(200, 20));
-        bookList.add(bookRooms, gbcBookList);
-
-        //Booking Input
-        bookInput.setPreferredSize(new Dimension(400,600));
-        card4.add(bookInput, BorderLayout.EAST);
-        JLabel bookNameLabel = new JLabel("Name:", JLabel.CENTER);
-        gbcBookInput.gridx = 0; gbcBookInput.gridy = 0;
-        bookInput.add(bookNameLabel, gbcBookInput);
-        JTextField bookNameInput = new JTextField(15);
-        gbcBookInput.gridx = 1; gbcBookInput.gridy = 0;
-        bookInput.add(bookNameInput, gbcBookInput);
-        JLabel bookInLabel = new JLabel("Check-In Day:", JLabel.CENTER);
-        gbcBookInput.gridx = 0; gbcBookInput.gridy = 1;
-        bookInput.add(bookInLabel, gbcBookInput);
-        JComboBox bookInInput = new JComboBox<>();
-        gbcBookInput.gridx = 1; gbcBookInput.gridy = 1;
-        bookInInput.setPreferredSize(new Dimension(50, 20));
-        bookInput.add(bookInInput, gbcBookInput);
-        JLabel bookOutLabel = new JLabel("Check-Out Day:", JLabel.CENTER);
-        gbcBookInput.gridx = 0; gbcBookInput.gridy = 2;
-        bookInput.add(bookOutLabel, gbcBookInput);
-        JComboBox bookOutInput = new JComboBox<>();
-        gbcBookInput.gridx = 1; gbcBookInput.gridy = 2;
-        bookOutInput.setPreferredSize(new Dimension(50, 20));
-        bookInput.add(bookOutInput, gbcBookInput);
-        JButton bookRoomSubmit = new JButton("Submit");
-        gbcBookInput.gridx = 0; gbcBookInput.gridy = 3; gbcBookInput.gridwidth = 2;
-        bookInput.add(bookRoomSubmit, gbcBookInput);
-
-        
 
         // Add the cards to the card panel
         //view.addCard(card1, "Create");
         //view.addCard(card2, "View");
         //view.addCard(card3, "Manage");
         //view.addCard(card4, "Book");
-    }
-
-
-    private JPanel createHotelPanel() {
-        // Hotel creation panel implementation (similar to your current implementation)
-        // Return the created panel
-        JPanel card1 = new JPanel(new BorderLayout());
-        // Your current panel creation code here
-        return card1;
-    }
+    //}
 
     //ALL OF THE ACTIONS //  tries to FOLLOW MVC
     
-
-    //@Override //comment out for now
-    //public void actionPerformed(ActionEvent e) {
-    //    // TODO Auto-generated method stub
-    //    throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-    //}
 }
 
