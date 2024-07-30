@@ -104,7 +104,7 @@ public class GUIController implements ActionListener{
 
         //View Hotel Panel
         JPanel card2 = new JPanel(new BorderLayout());
-        
+
         //Left Pane
         JPanel hotelViewList = new JPanel(new GridBagLayout());
         GridBagConstraints gbcHotelViewList = new GridBagConstraints();
@@ -115,7 +115,7 @@ public class GUIController implements ActionListener{
         GridBagConstraints gbcHotelViewInput = new GridBagConstraints();
         gbcHotelViewInput.insets = new Insets(0, 0, 10, 0);
 
-        card2.setBackground(Color.GRAY);
+        card2.setBackground(Color.GREEN);
 
         //Selecting Hotel to View
         hotelViewList.setPreferredSize(new Dimension(400, 600));
@@ -138,8 +138,6 @@ public class GUIController implements ActionListener{
         gbcHotelViewList.fill = GridBagConstraints.HORIZONTAL;
         hotelViewList.add(lowLevel, gbcHotelViewList);
 
-
-
         //Selecting low level type of information
         JLabel lowLevelOption = new JLabel("Low-Level Options: ");
         gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 4; 
@@ -150,33 +148,33 @@ public class GUIController implements ActionListener{
         hotelViewList.add(lowOptions, gbcHotelViewList);        
 
         //Low-Level Info View Rooms for Date
-        hotelViewInput.setPreferredSize(new Dimension(400, 600));
-        card2.add(hotelViewInput, BorderLayout.EAST);
+        //hotelViewInput.setPreferredSize(new Dimension(400, 600));
+        //card2.add(hotelViewInput, BorderLayout.EAST);
         JLabel hotelViewDate = new JLabel("Select a Date: ");
-        gbcHotelViewInput.gridx = 0; gbcHotelViewInput.gridy = 1;
-        hotelViewInput.add(hotelViewDate, gbcHotelViewInput);
+        gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 5;
+        hotelViewList.add(hotelViewDate, gbcHotelViewList);
         JComboBox viewDate = new JComboBox<>();
-        gbcHotelViewInput.gridx = 1; gbcHotelViewInput.gridy = 1;
+        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 5;
         viewDate.setPreferredSize(new Dimension(200, 30));
-        hotelViewInput.add(viewDate, gbcHotelViewInput);
+        hotelViewList.add(viewDate, gbcHotelViewList);
 
         //Low-Level Info View Rooms Info
         JLabel roomViewInfo = new JLabel("Select a Room: ");
-        gbcHotelViewInput.gridx = 0; gbcHotelViewInput.gridy = 2;
-        hotelViewInput.add(roomViewInfo, gbcHotelViewInput);
+        gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 6; //change y to 5 when combobox finish
+        hotelViewList.add(roomViewInfo, gbcHotelViewList);
         JComboBox viewRoom = new JComboBox<>();
-        gbcHotelViewInput.gridx = 1; gbcHotelViewInput.gridy = 2;
+        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 6; //change y to 5 when combobox finish
         viewRoom.setPreferredSize(new Dimension(200, 30));
-        hotelViewInput.add(viewRoom, gbcHotelViewInput);
+        hotelViewList.add(viewRoom, gbcHotelViewList);
 
         //Low-Level Info View Reservation Info
         JLabel reservationViewInfo = new JLabel("Select a Reservation: ");
-        gbcHotelViewInput.gridx = 0; gbcHotelViewInput.gridy = 3;
-        hotelViewInput.add(reservationViewInfo, gbcHotelViewInput);
+        gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 7; //change y to 5 when combobox finish
+        hotelViewList.add(reservationViewInfo, gbcHotelViewList);
         JComboBox viewReserve = new JComboBox<>();
-        gbcHotelViewInput.gridx = 1; gbcHotelViewInput.gridy = 3;
+        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 7; //change y to 5 when combobox finish
         viewReserve.setPreferredSize(new Dimension(200, 30));
-        hotelViewInput.add(viewReserve, gbcHotelViewInput);
+        hotelViewList.add(viewReserve, gbcHotelViewList);
 
         //card2.add(new JButton("East"), BorderLayout.EAST);
         //card2.add(new JButton("West"), BorderLayout.WEST);
