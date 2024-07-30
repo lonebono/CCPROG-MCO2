@@ -165,14 +165,8 @@ public class GUIController implements ActionListener{
         JTextField bookOutInput = new JTextField(15);
         gbcBookInput.gridx = 1; gbcBookInput.gridy = 2;
         bookInput.add(bookOutInput, gbcBookInput);
-        JLabel bookRoomLabel = new JLabel("Room Type:", JLabel.CENTER);
-        gbcBookInput.gridx = 0; gbcBookInput.gridy = 3;
-        bookInput.add(bookRoomLabel, gbcBookInput);
-        JTextField bookRoomInput = new JTextField(15);
-        gbcBookInput.gridx = 1; gbcBookInput.gridy = 3;
-        bookInput.add(bookRoomInput, gbcBookInput);
         JButton bookRoomSubmit = new JButton("Submit");
-        gbcBookInput.gridx = 0; gbcBookInput.gridy = 4; gbcBookInput.gridwidth = 2;
+        gbcBookInput.gridx = 0; gbcBookInput.gridy = 3; gbcBookInput.gridwidth = 2;
         bookInput.add(bookRoomSubmit, gbcBookInput);
 
         
