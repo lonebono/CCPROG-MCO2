@@ -104,22 +104,23 @@ public class GUIController implements ActionListener{
 
         //View Hotel Panel
         JPanel card2 = new JPanel(new BorderLayout());
+        card2.setBackground(Color.GREEN);
 
-        //Left Pane
+        //View Hotel Panel LEFT
         JPanel hotelViewList = new JPanel(new GridBagLayout());
         GridBagConstraints gbcHotelViewList = new GridBagConstraints();
         gbcHotelViewList.insets = new Insets(0, 0, 10, 0);
+        hotelViewList.setPreferredSize(new Dimension(400, 600));
+        card2.add(hotelViewList, BorderLayout.WEST);
 
-        //Right Pane
+        //View Hotel Panel RIGHT
         JPanel hotelViewInput = new JPanel(new GridBagLayout());
         GridBagConstraints gbcHotelViewInput = new GridBagConstraints();
         gbcHotelViewInput.insets = new Insets(0, 0, 10, 0);
-
-        card2.setBackground(Color.GREEN);
+        hotelViewInput.setPreferredSize(new Dimension(400, 600));
+        card2.add(hotelViewInput, BorderLayout.EAST);
 
         //Selecting Hotel to View
-        hotelViewList.setPreferredSize(new Dimension(400, 600));
-        card2.add(hotelViewList, BorderLayout.WEST);
         JLabel viewHotelLabel = new JLabel("Select Hotel: ");
         gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 0; 
         hotelViewList.add(viewHotelLabel, gbcHotelViewList);
@@ -128,22 +129,24 @@ public class GUIController implements ActionListener{
         viewHotels.setPreferredSize(new Dimension(200, 30));
         hotelViewList.add(viewHotels, gbcHotelViewList);
 
+        //High-Level Button
         JButton highLevel = new JButton("High-Level");
-        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 2;
+        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 1;
         gbcHotelViewList.fill = GridBagConstraints.HORIZONTAL;
         hotelViewList.add(highLevel, gbcHotelViewList);
 
+        //Low-Level Button
         JButton lowLevel = new JButton("Low-Level");
-        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 3;
+        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 2;
         gbcHotelViewList.fill = GridBagConstraints.HORIZONTAL;
         hotelViewList.add(lowLevel, gbcHotelViewList);
 
         //Selecting low level type of information
         JLabel lowLevelOption = new JLabel("Low-Level Options: ");
-        gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 4; 
+        gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 3; 
         hotelViewList.add(lowLevelOption, gbcHotelViewList);
         JComboBox lowOptions = new JComboBox<>();
-        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 4; 
+        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 3; 
         lowOptions.setPreferredSize(new Dimension(200, 30));
         hotelViewList.add(lowOptions, gbcHotelViewList);        
 
@@ -151,28 +154,28 @@ public class GUIController implements ActionListener{
         //hotelViewInput.setPreferredSize(new Dimension(400, 600));
         //card2.add(hotelViewInput, BorderLayout.EAST);
         JLabel hotelViewDate = new JLabel("Select a Date: ");
-        gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 5;
+        gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 4;
         hotelViewList.add(hotelViewDate, gbcHotelViewList);
         JComboBox viewDate = new JComboBox<>();
-        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 5;
+        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 4;
         viewDate.setPreferredSize(new Dimension(200, 30));
         hotelViewList.add(viewDate, gbcHotelViewList);
 
         //Low-Level Info View Rooms Info
         JLabel roomViewInfo = new JLabel("Select a Room: ");
-        gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 6; //change y to 5 when combobox finish
+        gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 5; //change y to 4 when combobox finish for appear disappear
         hotelViewList.add(roomViewInfo, gbcHotelViewList);
         JComboBox viewRoom = new JComboBox<>();
-        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 6; //change y to 5 when combobox finish
+        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 5; //change y to 4 when combobox finish for appear disappear
         viewRoom.setPreferredSize(new Dimension(200, 30));
         hotelViewList.add(viewRoom, gbcHotelViewList);
 
         //Low-Level Info View Reservation Info
         JLabel reservationViewInfo = new JLabel("Select a Reservation: ");
-        gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 7; //change y to 5 when combobox finish
+        gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 6; //change y to 4 when combobox finish for appear disappear
         hotelViewList.add(reservationViewInfo, gbcHotelViewList);
         JComboBox viewReserve = new JComboBox<>();
-        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 7; //change y to 5 when combobox finish
+        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 6; //change y to 4 when combobox finish for appear disappear
         viewReserve.setPreferredSize(new Dimension(200, 30));
         hotelViewList.add(viewReserve, gbcHotelViewList);
 
@@ -182,8 +185,134 @@ public class GUIController implements ActionListener{
         //Manage Hotel Panel
         JPanel card3 = new JPanel(new BorderLayout());
         card3.setBackground(Color.BLUE);
-        card3.add(new JButton("East"), BorderLayout.EAST);
-        card3.add(new JButton("West"), BorderLayout.WEST);
+
+        //Manage Hotel Panel LEFT
+        JPanel hotelManageList = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcHotelManageList = new GridBagConstraints();
+        gbcHotelManageList.insets = new Insets(0, 0, 10, 0);
+        hotelManageList.setPreferredSize(new Dimension(400, 600));
+        card3.add(hotelManageList, BorderLayout.WEST);
+
+        //Selecting Hotel to Manage
+        JLabel manageHotelLabel = new JLabel("Manage Hotel: ");
+        gbcHotelManageList.gridx = 0; gbcHotelManageList.gridy = 0; 
+        hotelManageList.add(manageHotelLabel, gbcHotelManageList);
+        JComboBox manageHotels = new JComboBox<>();
+        gbcHotelManageList.gridx = 1; gbcHotelManageList.gridy = 0; 
+        manageHotels.setPreferredSize(new Dimension(200, 30));
+        hotelManageList.add(manageHotels, gbcHotelManageList);
+
+        //Selecting Manage Options
+        JLabel manageOptionList = new JLabel("Manage Options: ");
+        gbcHotelManageList.gridx = 0; gbcHotelManageList.gridy = 1; 
+        hotelManageList.add(manageOptionList, gbcHotelManageList);
+        JComboBox manageOptions = new JComboBox<>();
+        gbcHotelManageList.gridx = 1; gbcHotelManageList.gridy = 1; 
+        manageOptions.setPreferredSize(new Dimension(200, 30));
+        hotelManageList.add(manageOptions, gbcHotelManageList);    
+
+        //Manage Hotel Panel RIGHT
+        JPanel hotelManageInput = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcHotelManageInput = new GridBagConstraints();
+        gbcHotelManageInput.insets = new Insets(0, 0, 10, 0);
+        hotelManageInput.setPreferredSize(new Dimension(400, 600));
+        card3.add(hotelManageInput, BorderLayout.EAST);
+
+        //Selecting Room Type
+        JLabel roomTypeList = new JLabel("Room Types: ");
+        gbcHotelManageInput.gridx = 0; gbcHotelManageInput.gridy = 1; 
+        hotelManageInput.add(roomTypeList, gbcHotelManageInput);
+        JComboBox roomTypeOptions = new JComboBox<>();
+        gbcHotelManageInput.gridx = 1; gbcHotelManageInput.gridy = 1; 
+        roomTypeOptions.setPreferredSize(new Dimension(200, 30));
+        hotelManageInput.add(roomTypeOptions, gbcHotelManageInput);
+
+        //Room Type Confirm Button
+        JButton roomTypeButton = new JButton("Confirm");
+        gbcHotelManageInput.gridx = 1; gbcHotelManageInput.gridy = 2;
+        gbcHotelManageInput.fill = GridBagConstraints.HORIZONTAL;
+        hotelManageInput.add(roomTypeButton, gbcHotelManageInput);
+
+        //Selecting Room to Remove
+        JLabel roomRemoveList = new JLabel("   Remove Room: "); //extra space for alignment
+        gbcHotelManageInput.gridx = 0; gbcHotelManageInput.gridy = 3; //change y to 1 when combobox finish for appear disappear
+        hotelManageInput.add(roomRemoveList, gbcHotelManageInput);
+        JComboBox roomRemove = new JComboBox<>();
+        gbcHotelManageInput.gridx = 1; gbcHotelManageInput.gridy = 3; //change y to 1 when combobox finish for appear disappear
+        roomRemove.setPreferredSize(new Dimension(200, 30));
+        hotelManageInput.add(roomRemove, gbcHotelManageInput);
+
+        //Room Remove Remove Button
+        JButton roomRemoveButton = new JButton("Remove");
+        gbcHotelManageInput.gridx = 1; gbcHotelManageInput.gridy = 4; //change y to 2 when combobox finish for appear disappear
+        gbcHotelManageInput.fill = GridBagConstraints.HORIZONTAL;
+        hotelManageInput.add(roomRemoveButton, gbcHotelManageInput);
+
+        //Selecting Room to Update Price
+        JLabel roomPriceList = new JLabel("     Update Price: ");//extra space for alignment
+        gbcHotelManageInput.gridx = 0; gbcHotelManageInput.gridy = 5; //change y to 1 when combobox finish for appear disappear
+        hotelManageInput.add(roomPriceList, gbcHotelManageInput);
+        JComboBox roomPrice = new JComboBox<>();
+        gbcHotelManageInput.gridx = 1; gbcHotelManageInput.gridy = 5; //change y to 1 when combobox finish for appear disappear
+        roomPrice.setPreferredSize(new Dimension(200, 30));
+        hotelManageInput.add(roomPrice, gbcHotelManageInput);
+
+        //Room Change Price Text Field
+        JLabel roomPriceLabel = new JLabel("New Price:", JLabel.CENTER);
+        gbcHotelManageInput.gridx = 0; gbcHotelManageInput.gridy = 6; //change y to 2 when combobox finish for appear disappear
+        hotelManageInput.add(roomPriceLabel, gbcHotelManageInput);
+        JTextField roomPriceInput = new JTextField(15);
+        roomPriceInput.setPreferredSize(new Dimension(200, 30));
+        gbcHotelManageInput.gridx = 1; gbcHotelManageInput.gridy = 6; //change y to 2 when combobox finish for appear disappear
+        hotelManageInput.add(roomPriceInput, gbcHotelManageInput);
+        
+        //Room Change Price Update Button
+        JButton roomPriceButton = new JButton("Update");
+        gbcHotelManageInput.gridx = 1; gbcHotelManageInput.gridy = 7; //change y to 3 when combobox finish for appear disappear
+        gbcHotelManageInput.fill = GridBagConstraints.HORIZONTAL;
+        hotelManageInput.add(roomPriceButton, gbcHotelManageInput);
+
+        //Selecting Reservation to Remove
+        JLabel reserveRemoveList = new JLabel("Remove Reservation: ");
+        gbcHotelManageInput.gridx = 0; gbcHotelManageInput.gridy = 8; //change y to 1 when combobox finish for appear disappear
+        hotelManageInput.add(reserveRemoveList, gbcHotelManageInput);
+        JComboBox reserveRemove = new JComboBox<>();
+        gbcHotelManageInput.gridx = 1; gbcHotelManageInput.gridy = 8; //change y to 1 when combobox finish for appear disappear
+        reserveRemove.setPreferredSize(new Dimension(200, 30));
+        hotelManageInput.add(reserveRemove, gbcHotelManageInput);
+
+        //Reservation Remove, Remove Button
+        JButton reserveRemoveButton = new JButton("Remove");
+        gbcHotelManageInput.gridx = 1; gbcHotelManageInput.gridy = 9; //change y to 2 when combobox finish for appear disappear
+        gbcHotelManageInput.fill = GridBagConstraints.HORIZONTAL;
+        hotelManageInput.add(reserveRemoveButton, gbcHotelManageInput);
+
+        //Hotel Change Name Text Field
+        JLabel hotelNameLabel = new JLabel("Change Name:", JLabel.CENTER);
+        gbcHotelManageInput.gridx = 0; gbcHotelManageInput.gridy = 10; //change y to 2 when combobox finish for appear disappear
+        hotelManageInput.add(hotelNameLabel, gbcHotelManageInput);
+        JTextField hotelNameInput = new JTextField(15);
+        hotelNameInput.setPreferredSize(new Dimension(200, 30));
+        gbcHotelManageInput.gridx = 1; gbcHotelManageInput.gridy = 10; //change y to 2 when combobox finish for appear disappear
+        hotelManageInput.add(hotelNameInput, gbcHotelManageInput);
+        
+        //Hotel Change Name Change Button
+        JButton hotelNameButton = new JButton("Change");
+        gbcHotelManageInput.gridx = 1; gbcHotelManageInput.gridy = 11; //change y to 3 when combobox finish for appear disappear
+        gbcHotelManageInput.fill = GridBagConstraints.HORIZONTAL;
+        hotelManageInput.add(hotelNameButton, gbcHotelManageInput);
+
+        //Hotel Remove, Remove Button
+        JButton hotelRemoveButton = new JButton("Remove");
+        gbcHotelManageInput.gridx = 1; gbcHotelManageInput.gridy = 11; //change y to 3 when combobox finish for appear disappear
+        gbcHotelManageInput.fill = GridBagConstraints.HORIZONTAL;
+        hotelManageInput.add(hotelRemoveButton, gbcHotelManageInput);
+
+
+
+
+        //card3.add(new JButton("East"), BorderLayout.EAST);
+        //card3.add(new JButton("West"), BorderLayout.WEST);
 
 
         //Book Reservation Panel
