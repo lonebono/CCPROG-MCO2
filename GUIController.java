@@ -18,7 +18,7 @@ public class GUIController implements ActionListener{
         // add action listeners to buttons
         view.getBtnCreate().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                view.showCard("1");
+                view.showCard("Create");
                 //TO FOLLOW ALL ABOUT CREATE
 
             }
@@ -26,21 +26,21 @@ public class GUIController implements ActionListener{
 
         view.getBtnView().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                view.showCard("2");
+                view.showCard("View");
                 //TO FOLLOW ALL ABOUT VIEW
             }
         });
 
         view.getBtnManage().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                view.showCard("3");
+                view.showCard("Manage");
                 //TO FOLLOW ALL ABOUT MANAGE
             }
         });
 
         view.getBtnBook().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                view.showCard("4");
+                view.showCard("Book");
                 //TO FOLLOW ALL ABOUT BOOK
             }
         });
@@ -48,15 +48,17 @@ public class GUIController implements ActionListener{
     
     public void updateView(){
         // Create different panels with BorderLayout for CardLayout
+
         // Hotel Creation Panel
+        // Panels
         JPanel card1 = new JPanel(new BorderLayout());
         JPanel createList = new JPanel(new GridBagLayout());
         JPanel createInput = new JPanel(new GridBagLayout());
-        GridBagConstraints gbcList = new GridBagConstraints();
-        gbcList.insets = new Insets(0, 0, 10, 0); // Padding // top left bot right
-        gbcList.fill = GridBagConstraints.BOTH; // Fill horizontally
-        GridBagConstraints gbcInput = new GridBagConstraints();
-        gbcInput.insets = new Insets(0, 0, 10, 0);
+        GridBagConstraints gbcCreateList = new GridBagConstraints();
+        gbcCreateList.insets = new Insets(0, 0, 10, 0); // Padding // top left bot right
+        gbcCreateList.fill = GridBagConstraints.BOTH; // Fill horizontally and vertically
+        GridBagConstraints gbcCreateInput = new GridBagConstraints();
+        gbcCreateInput.insets = new Insets(0, 0, 10, 0);
         // i don't want to take the entire space i want it centered // no .fill for now 
 
         card1.setBackground(Color.GRAY);
@@ -64,44 +66,40 @@ public class GUIController implements ActionListener{
         createList.setPreferredSize(new Dimension(400, 600));
         card1.add(createList, BorderLayout.WEST);
         JLabel createLabelInfo = new JLabel("Hotel Creation Info", JLabel.CENTER);
-        gbcList.gridx = 0; gbcList.gridy = 0; gbcList.weightx = 0.05; gbcList.weighty = 0.05; 
-        createList.add(createLabelInfo, gbcList); // adds the label
+        gbcCreateList.gridx = 0; gbcCreateList.gridy = 0; gbcCreateList.weightx = 0.05; gbcCreateList.weighty = 0.05; 
+        createList.add(createLabelInfo, gbcCreateList); // adds the label
         JTextArea createTextInfo = new JTextArea();
         createTextInfo.setEditable(false);
         createTextInfo.setLineWrap(true);
         JScrollPane infoScroll = new JScrollPane(createTextInfo); // Wrap text field in scroll pane
         infoScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         infoScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        gbcList.gridx = 0; gbcList.gridy = 1; gbcList.weightx = 0.3; gbcList.weighty = 0.3;
-        createList.add(infoScroll, gbcList); // adds the info list
+        gbcCreateList.gridx = 0; gbcCreateList.gridy = 1; gbcCreateList.weightx = 0.3; gbcCreateList.weighty = 0.3;
+        createList.add(infoScroll, gbcCreateList); // adds the info list
         //createInput
         createInput.setPreferredSize(new Dimension(400,600));
         card1.add(createInput, BorderLayout.EAST);
         JLabel createFeedbackLabel= new JLabel("Feedback:", JLabel.CENTER);
-        gbcInput.gridx = 0; gbcInput.gridy = 0;
-        createInput.add(createFeedbackLabel, gbcInput);
+        gbcCreateInput.gridx = 0; gbcCreateInput.gridy = 0;
+        createInput.add(createFeedbackLabel, gbcCreateInput);
         JTextField inputFeedback = new JTextField(15);
-        gbcInput.gridx = 1; gbcInput.gridy = 0;
-        createInput.add(inputFeedback, gbcInput);
-        JLabel createInputLabel= new JLabel("Input Information Below:", JLabel.CENTER);
-        gbcInput.gridx = 0; gbcInput.gridy = 1; gbcInput.gridwidth = 2;
-        createInput.add(createInputLabel, gbcInput);
-        gbcInput.gridwidth = 1; //resets gridwidth
+        gbcCreateInput.gridx = 1; gbcCreateInput.gridy = 0;
+        createInput.add(inputFeedback, gbcCreateInput);
         JLabel inputHotelLabel = new JLabel("Hotel Name:", JLabel.CENTER);
-        gbcInput.gridx = 0; gbcInput.gridy = 2; 
-        createInput.add(inputHotelLabel, gbcInput);
+        gbcCreateInput.gridx = 0; gbcCreateInput.gridy = 1; 
+        createInput.add(inputHotelLabel, gbcCreateInput);
         JTextField inputHotelName = new JTextField(15);
-        gbcInput.gridx = 1; gbcInput.gridy = 2;
-        createInput.add(inputHotelName, gbcInput);
+        gbcCreateInput.gridx = 1; gbcCreateInput.gridy = 1;
+        createInput.add(inputHotelName, gbcCreateInput);
         JLabel createRoomLabel = new JLabel("Room Type:", JLabel.CENTER);
-        gbcInput.gridx = 0; gbcInput.gridy = 3;
-        createInput.add(createRoomLabel, gbcInput);
+        gbcCreateInput.gridx = 0; gbcCreateInput.gridy = 2;
+        createInput.add(createRoomLabel, gbcCreateInput);
         JTextField createRoomType = new JTextField(15);
-        gbcInput.gridx = 1; gbcInput.gridy = 3;
-        createInput.add(createRoomType, gbcInput);
+        gbcCreateInput.gridx = 1; gbcCreateInput.gridy = 2;
+        createInput.add(createRoomType, gbcCreateInput);
         JButton createHotelSubmit = new JButton("Submit");
-        gbcInput.gridx = 0; gbcInput.gridy = 4; gbcInput.gridwidth = 2;
-        createInput.add(createHotelSubmit, gbcInput);
+        gbcCreateInput.gridx = 0; gbcCreateInput.gridy = 3; gbcCreateInput.gridwidth = 2;
+        createInput.add(createHotelSubmit, gbcCreateInput);
         
 
         //View Hotel Panel
@@ -110,22 +108,86 @@ public class GUIController implements ActionListener{
         card2.add(new JButton("East"), BorderLayout.EAST);
         card2.add(new JButton("West"), BorderLayout.WEST);
 
+        //Manage Hotel Panel
         JPanel card3 = new JPanel(new BorderLayout());
         card3.setBackground(Color.BLUE);
         card3.add(new JButton("East"), BorderLayout.EAST);
         card3.add(new JButton("West"), BorderLayout.WEST);
 
+
+        //Book Reservation Panel
+        //Panels
         JPanel card4 = new JPanel(new BorderLayout());
-        card4.setBackground(Color.YELLOW);
-        card4.add(new JButton("East"), BorderLayout.EAST);
-        card4.add(new JButton("West"), BorderLayout.WEST);
+        JPanel bookList = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcBookList = new GridBagConstraints();
+        gbcBookList.insets = new Insets(0, 0, 10, 0);
+        JPanel bookInput = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcBookInput = new GridBagConstraints();
+        gbcBookInput.insets = new Insets(0, 0, 10, 0);
+
+        card4.setBackground(Color.GRAY);
+        //Booking Information
+        bookList.setPreferredSize(new Dimension(400, 600));
+        card4.add(bookList, BorderLayout.WEST);
+        JLabel bookHotelLabel = new JLabel("Select Hotel: ");
+        gbcBookList.gridx = 0; gbcBookList.gridy = 0; 
+        bookList.add(bookHotelLabel, gbcBookList);
+        JComboBox bookHotels = new JComboBox<>();
+        gbcBookList.gridx = 1; gbcBookList.gridy = 0;
+        bookHotels.setPreferredSize(new Dimension(200, 30));
+        bookList.add(bookHotels, gbcBookList);
+        JLabel bookRoomsLabel = new JLabel("Select Room: ");
+        gbcBookList.gridx = 0; gbcBookList.gridy = 1;
+        bookList.add(bookRoomsLabel, gbcBookList);
+        JComboBox bookRooms = new JComboBox<>();
+        gbcBookList.gridx = 1; gbcBookList.gridy = 1;
+        bookRooms.setPreferredSize(new Dimension(200, 30));
+        bookList.add(bookRooms, gbcBookList);
+
+        //Booking Input
+        bookInput.setPreferredSize(new Dimension(400,600));
+        card4.add(bookInput, BorderLayout.EAST);
+        JLabel bookNameLabel = new JLabel("Name:", JLabel.CENTER);
+        gbcBookInput.gridx = 0; gbcBookInput.gridy = 0;
+        bookInput.add(bookNameLabel, gbcBookInput);
+        JTextField bookNameInput = new JTextField(15);
+        gbcBookInput.gridx = 1; gbcBookInput.gridy = 0;
+        bookInput.add(bookNameInput, gbcBookInput);
+        JLabel bookInLabel = new JLabel("Check-In Day:", JLabel.CENTER);
+        gbcBookInput.gridx = 0; gbcBookInput.gridy = 1;
+        bookInput.add(bookInLabel, gbcBookInput);
+        JTextField bookInInput = new JTextField(15);
+        gbcBookInput.gridx = 1; gbcBookInput.gridy = 1;
+        bookInput.add(bookInInput, gbcBookInput);
+        JLabel bookOutLabel = new JLabel("Check-Out Day:", JLabel.CENTER);
+        gbcBookInput.gridx = 0; gbcBookInput.gridy = 2;
+        bookInput.add(bookOutLabel, gbcBookInput);
+        JTextField bookOutInput = new JTextField(15);
+        gbcBookInput.gridx = 1; gbcBookInput.gridy = 2;
+        bookInput.add(bookOutInput, gbcBookInput);
+        JLabel bookRoomLabel = new JLabel("Room Type:", JLabel.CENTER);
+        gbcBookInput.gridx = 0; gbcBookInput.gridy = 3;
+        bookInput.add(bookRoomLabel, gbcBookInput);
+        JTextField bookRoomInput = new JTextField(15);
+        gbcBookInput.gridx = 1; gbcBookInput.gridy = 3;
+        bookInput.add(bookRoomInput, gbcBookInput);
+        JButton bookRoomSubmit = new JButton("Submit");
+        gbcBookInput.gridx = 0; gbcBookInput.gridy = 4; gbcBookInput.gridwidth = 2;
+        bookInput.add(bookRoomSubmit, gbcBookInput);
+
+        
 
         // Add the cards to the card panel
-        view.addCard(card1, "1");
-        view.addCard(card2, "2");
-        view.addCard(card3, "3");
-        view.addCard(card4, "4");
+        view.addCard(card1, "Create");
+        view.addCard(card2, "View");
+        view.addCard(card3, "Manage");
+        view.addCard(card4, "Book");
     }
+
+
+     
+    //ALL OF THE ACTIONS // DOES NOT YET FOLLOW MVC
+    //Create Hotel Button
 
     @Override
     public void actionPerformed(ActionEvent e) {
