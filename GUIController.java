@@ -104,7 +104,7 @@ public class GUIController implements ActionListener{
 
         //View Hotel Panel
         JPanel card2 = new JPanel(new BorderLayout());
-
+        
         //Left Pane
         JPanel hotelViewList = new JPanel(new GridBagLayout());
         GridBagConstraints gbcHotelViewList = new GridBagConstraints();
@@ -115,7 +115,7 @@ public class GUIController implements ActionListener{
         GridBagConstraints gbcHotelViewInput = new GridBagConstraints();
         gbcHotelViewInput.insets = new Insets(0, 0, 10, 0);
 
-        card2.setBackground(Color.GREEN);
+        card2.setBackground(Color.GRAY);
 
         //Selecting Hotel to View
         hotelViewList.setPreferredSize(new Dimension(400, 600));
@@ -229,14 +229,16 @@ public class GUIController implements ActionListener{
         JLabel bookInLabel = new JLabel("Check-In Day:", JLabel.CENTER);
         gbcBookInput.gridx = 0; gbcBookInput.gridy = 1;
         bookInput.add(bookInLabel, gbcBookInput);
-        JTextField bookInInput = new JTextField(15);
+        JComboBox bookInInput = new JComboBox<>();
         gbcBookInput.gridx = 1; gbcBookInput.gridy = 1;
+        bookInInput.setPreferredSize(new Dimension(50, 20));
         bookInput.add(bookInInput, gbcBookInput);
         JLabel bookOutLabel = new JLabel("Check-Out Day:", JLabel.CENTER);
         gbcBookInput.gridx = 0; gbcBookInput.gridy = 2;
         bookInput.add(bookOutLabel, gbcBookInput);
-        JTextField bookOutInput = new JTextField(15);
+        JComboBox bookOutInput = new JComboBox<>();
         gbcBookInput.gridx = 1; gbcBookInput.gridy = 2;
+        bookOutInput.setPreferredSize(new Dimension(50, 20));
         bookInput.add(bookOutInput, gbcBookInput);
         JButton bookRoomSubmit = new JButton("Submit");
         gbcBookInput.gridx = 0; gbcBookInput.gridy = 3; gbcBookInput.gridwidth = 2;
