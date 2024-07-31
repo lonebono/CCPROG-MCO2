@@ -103,13 +103,13 @@ public class BookRoomGUI extends JPanel{
 
         // Initialize check-in day JComboBox
         bookInInput = new JComboBox<>();
-        for (int i = 1; i <= 30; i++) {
+        for (int i = 1; i <= 31; i++) {
             bookInInput.addItem(i);
         }
 
         // Initialize check-out day JComboBox
         bookOutInput = new JComboBox<>();
-        for (int i = 1; i <= 30; i++) {
+        for (int i = 1; i <= 31; i++) {
             bookOutInput.addItem(i);
         }
 
@@ -168,11 +168,14 @@ public class BookRoomGUI extends JPanel{
         }
     }
 
-    private void updateBookOutInput() {
+    public void updateBookOutInput() {
         bookOutInput.removeAllItems();
-        int inDay = (int) bookInInput.getSelectedItem();
-        for (int i = inDay; i <= 30; i++) {
-            bookOutInput.addItem(i);
+        Object selectedItem = bookInInput.getSelectedItem();
+        if (selectedItem!= null) {
+            int inDay = (int) selectedItem;
+            for (int i = inDay; i <= 30; i++) {
+                bookOutInput.addItem(i);
+            }
         }
     }
 

@@ -153,13 +153,23 @@ public class GUIController implements ActionListener{
         // Get the selected values from the JComboBoxes
         String hotelName = (String) bookRoomGUI.getBookHotels().getSelectedItem();
         String roomSelection = (String) bookRoomGUI.getBookRooms().getSelectedItem();
+        if (roomSelection == null) {
+            bookRoomGUI.getBookFeedbackInput().setText("Please select a room");
+            return;
+        }
         int roomNumber = Integer.parseInt(roomSelection.split(" ")[1]);
         int inDay = (int) bookRoomGUI.getBookInInput().getSelectedItem();
         int outDay = (int) bookRoomGUI.getBookOutInput().getSelectedItem();
+
+        // Check that the outDay is greater than the inDay
+        if (outDay <= inDay) {
+            bookRoomGUI.getBookFeedbackInput().setText("Check-out day must be later than check-in day");
+            return;
+        }
         
         // Get the text from the JTextFields
         String name = bookRoomGUI.getBookNameInput().getText();
-        String discountCode = bookRoomGUI.getBookDiscountInput().getText();
+        String discountCode = bookRoomGUI.getBookDiscountInput().getText(); // get the discount code from the JTextField
         
         // Validate the input and add the reservation to the hotel's arraylist of reservation objects
         Hotel selectedHotel = null;
@@ -178,7 +188,7 @@ public class GUIController implements ActionListener{
                 }
             }
             if (room != null) {
-                Reservation reservation = new Reservation(name, inDay, outDay, room, discountCode);
+                Reservation reservation = new Reservation(name, inDay, outDay, room, discountCode); // pass the discountCode variable to the Reservation constructor
                 selectedHotel.getReservationList().add(reservation);
                 bookRoomGUI.getBookFeedbackInput().setText("Reservation Success");
             } else {
