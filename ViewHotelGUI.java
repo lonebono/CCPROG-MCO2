@@ -2,9 +2,12 @@ package MCO2.src;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.chrono.ThaiBuddhistChronology;
 
 public class ViewHotelGUI extends JPanel {
-
+    private GUIController guiController;
     private JComboBox<String> viewHotels;
     private JButton highLevel;
     private JButton lowLevel;
@@ -12,8 +15,10 @@ public class ViewHotelGUI extends JPanel {
     private JComboBox<String> viewDate;
     private JComboBox<String> viewRoom;
     private JComboBox<String> viewReserve;
+    private JTextArea viewHotelInfo;
 
     public ViewHotelGUI() {
+        this.guiController = guiController;
         // View Hotel Panel
         setLayout(new BorderLayout());
         setBackground(Color.GREEN);
@@ -53,6 +58,12 @@ public class ViewHotelGUI extends JPanel {
         gbcHotelViewList.fill = GridBagConstraints.HORIZONTAL;
         hotelViewList.add(lowLevel, gbcHotelViewList);
 
+        viewHotelInfo = new JTextArea(100, 20);
+        viewHotelInfo.setEditable(false);
+        gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 3;
+        gbcHotelViewList.fill = GridBagConstraints.HORIZONTAL;
+        hotelViewList.add(viewHotelInfo, gbcHotelViewList);
+
         // Selecting low-level type of information
         JLabel lowLevelOption = new JLabel("Low-Level Options: ");
         gbcHotelViewList.gridx = 0; gbcHotelViewList.gridy = 3;
@@ -88,7 +99,32 @@ public class ViewHotelGUI extends JPanel {
         gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 6;
         viewReserve.setPreferredSize(new Dimension(200, 30));
         hotelViewList.add(viewReserve, gbcHotelViewList);
+
+        // Add action listeners
+        viewHotels.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String selectedHotel = (String) viewHotels.getSelectedItem();
+                if (selectedHotel!= null) {
+                    guiController.updateViewHotelView(selectedHotel);
+                }
+            }
+        });
+
+        lowLevel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String selectedOption = (String) lowOptions.getSelectedItem();
+                if (selectedOption != null) {
+                    // Update the view accordingly based on the selected low-level option
+                    // For example, display a list of rooms or reservations for the selected hotel
+                }
+            }
+        });
+
     }
+
+public void setGuiController(GUIController guiController) {
+    this.guiController = guiController;
+}
 
     // Getters for the components
     public JComboBox<String> getViewHotels() {
@@ -103,6 +139,10 @@ public class ViewHotelGUI extends JPanel {
         return lowLevel;
     }
 
+    public JTextArea getViewHotelInfo() {
+        return viewHotelInfo;
+    }
+    
     public JComboBox<String> getLowOptions() {
         return lowOptions;
     }
@@ -117,5 +157,11 @@ public class ViewHotelGUI extends JPanel {
 
     public JComboBox<String> getViewReserve() {
         return viewReserve;
+    }
+
+    // Placeholder for method to update the view based on the selected hotel
+    private void updateViewHotelView(String selectedHotel) {
+        // Implementation to update the view based on the selected hotel
+        // This might involve querying a database or updating the JComboBoxes with relevant data
     }
 }

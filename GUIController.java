@@ -12,8 +12,8 @@ public class GUIController implements ActionListener {
     private BookRoomGUI bookRoomGUI;
 
     public GUIController(MainGUIView view, ReserveSystem reserveSystem, 
-                         CreateHotelGUI createHotelGUI, ViewHotelGUI viewHotelGUI,
-                         ManageHotelGUI manageHotelGUI, BookRoomGUI bookRoomGUI) {
+                     CreateHotelGUI createHotelGUI, ViewHotelGUI viewHotelGUI,
+                     ManageHotelGUI manageHotelGUI, BookRoomGUI bookRoomGUI) {
         this.view = view;
         this.reserveSystem = reserveSystem;
         this.createHotelGUI = createHotelGUI;
@@ -37,7 +37,6 @@ public class GUIController implements ActionListener {
         view.getBtnView().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 view.showCard("View");
-                updateViewHotelView();
             }
         });
 
@@ -84,10 +83,48 @@ public class GUIController implements ActionListener {
         createHotelGUI.getCreateTextInfo().setText(hotelListText);
     }
 
-    private void updateViewHotelView() {
-        // Add logic to update the ViewHotelView
-        // For example, display a list of hotels
-        //viewHotelGUI.getHotelList().setText("Displaying list of hotels..."); example line
+    public void updateViewHotelView(String selectedHotel) {
+        Hotel hotel = null;
+        for (Hotel h : reserveSystem.getHotelList()) {
+            if (h.getHotelName().equals(selectedHotel)) {
+                hotel = h;
+                break;
+            }
+        }
+        if (hotel != null) {
+            viewHotelGUI.getViewHotelInfo().setText("Hotel: " + hotel.getHotelName() + "\n" +
+                    "Number of rooms: " + hotel.getRoomList().size() + "\n" +
+                    "Estimated earnings for the month: " + hotel.calculateTotalEarnings());
+        } else {
+            viewHotelGUI.getViewHotelInfo().setText("Hotel not found");
+        }
+    }
+    
+    private void updateLowLevelOptionsComboBox() {
+        viewHotelGUI.getLowOptions().removeAllItems();
+        viewHotelGUI.getLowOptions().addItem("Rooms");
+        viewHotelGUI.getLowOptions().addItem("Reservations");
+        // Add more options as needed
+    }
+    
+    private void updateViewDateComboBox() {
+        viewHotelGUI.getViewDate().removeAllItems();
+        // Populate the view date JComboBox with dates (e.g., from a calendar)
+        for (int i = 1; i <= 31; i++) {
+            viewHotelGUI.getViewDate().addItem(String.valueOf(i));
+        }
+    }
+    
+    private void updateViewRoomComboBox() {
+        viewHotelGUI.getViewRoom().removeAllItems();
+        // Populate the view room JComboBox with rooms from the selected hotel
+        // This will be updated when a hotel is selected from the hotel list JComboBox
+    }
+    
+    private void updateViewReservationComboBox() {
+        viewHotelGUI.getViewReserve().removeAllItems();
+        // Populate the view reservation JComboBox with reservations from the selected hotel
+        // This will be updated when a hotel is selected from the hotel list JComboBox
     }
 
     private void updateManageHotelView() {
