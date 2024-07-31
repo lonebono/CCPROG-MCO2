@@ -11,7 +11,9 @@ public class BookRoomGUI extends JPanel{
     private JComboBox bookHotels, bookRooms;
     private JComboBox bookInInput, bookOutInput;
     private JTextField bookNameInput, bookFeedbackInput, bookDiscountInput;
-    public BookRoomGUI(){
+    private ReserveSystem reserveSystem;
+    public BookRoomGUI(ReserveSystem reserveSystem){
+        this.reserveSystem = reserveSystem;
         //Book Reservation Panel
         //Panels
         setLayout(new BorderLayout());
@@ -66,14 +68,18 @@ public class BookRoomGUI extends JPanel{
         JLabel bookInLabel = new JLabel("Check-In Day:", JLabel.CENTER);
         gbcBookInput.gridx = 0; gbcBookInput.gridy = 3;
         bookInput.add(bookInLabel, gbcBookInput);
-        bookInInput = new JComboBox<>();
+        String[] days = new String[31];
+        for (int i = 0; i < 31; i++) {
+            days[i] = String.valueOf(i + 1);
+        }
+        bookInInput = new JComboBox<>(days);
         gbcBookInput.gridx = 1; gbcBookInput.gridy = 3;
         bookInInput.setPreferredSize(new Dimension(50, 20));
         bookInput.add(bookInInput, gbcBookInput);
         JLabel bookOutLabel = new JLabel("Check-Out Day:", JLabel.CENTER);
         gbcBookInput.gridx = 0; gbcBookInput.gridy = 4;
         bookInput.add(bookOutLabel, gbcBookInput);
-        bookOutInput = new JComboBox<>();
+        bookOutInput = new JComboBox<>(days);
         gbcBookInput.gridx = 1; gbcBookInput.gridy = 4;
         bookOutInput.setPreferredSize(new Dimension(50, 20));
         bookInput.add(bookOutInput, gbcBookInput);
@@ -150,14 +156,14 @@ public class BookRoomGUI extends JPanel{
         bookRooms.removeAllItems();
         Hotel selectedHotel = null;
         for (Hotel hotel : reserveSystem.getHotelList()) {
-            if (hotel.getHotelName().equals(getBookHotels().getSelectedItem())) {
+            if (hotel.getHotelName().equals((String) bookHotels.getSelectedItem())) {
                 selectedHotel = hotel;
                 break;
             }
         }
         if (selectedHotel != null) {
             for (Room room : selectedHotel.getRoomList()) {
-                bookRooms.addItem(room.getRoomType());
+                bookRooms.addItem("Room " + room.getRoomNumber());
             }
         }
     }
