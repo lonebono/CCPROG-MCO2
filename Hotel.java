@@ -255,7 +255,7 @@ public class Hotel {
     public void printAvailableDaysForPriceChange() {
         System.out.println("Days available for price rate change:");
         boolean foundAvailable = false;
-        for (int day = 1; day <= 30; day++) {
+        for (int day = 1; day <= 31; day++) {
             boolean canChange = true;
             for (Room room : roomList) {
                 if (!room.isAvailable(day, day + 1)) {

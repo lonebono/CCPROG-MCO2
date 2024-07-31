@@ -103,9 +103,6 @@ public class GUIController implements ActionListener{
         // Update the bookHotels JComboBox
         updateBookHotelsComboBox();
 
-        // Update the bookRooms JComboBox
-        updateBookRoomsComboBox();
-
         // Update the bookInInput JComboBox
         updateBookInInputComboBox();
 

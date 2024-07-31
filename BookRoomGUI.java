@@ -119,6 +119,14 @@ public class BookRoomGUI extends JPanel{
                 updateBookOutInput();
             }
         });
+
+        
+        bookHotels.addActionListener(new ActionListener() {
+        @Override
+            public void actionPerformed(ActionEvent e) {
+            updateBookRooms();
+        }
+        });
     }
 
     public JComboBox getBookHotels() {
@@ -152,19 +160,31 @@ public class BookRoomGUI extends JPanel{
     public JTextField getBookDiscountInput() {
         return bookDiscountInput;
     }
+
     public void updateBookRooms() {
         bookRooms.removeAllItems();
-        Hotel selectedHotel = null;
-        for (Hotel hotel : reserveSystem.getHotelList()) {
-            if (hotel.getHotelName().equals((String) bookHotels.getSelectedItem())) {
-                selectedHotel = hotel;
-                break;
+        Object selectedItem = bookHotels.getSelectedItem();
+        if (selectedItem != null) {
+            String selectedHotelName = selectedItem.toString();
+            Hotel selectedHotel = null;
+            for (Hotel hotel : reserveSystem.getHotelList()) {
+                if (hotel.getHotelName().equals(selectedHotelName)) {
+                    selectedHotel = hotel;
+                    break;
+                }
             }
-        }
-        if (selectedHotel != null) {
-            for (Room room : selectedHotel.getRoomList()) {
-                bookRooms.addItem("Room " + room.getRoomNumber() + " - " + room.getRoomType());
+            if (selectedHotel != null) {
+                System.out.println("Selected hotel: " + selectedHotel.getHotelName());
+                System.out.println("Room list size: " + selectedHotel.getRoomList().size());
+                for (Room room : selectedHotel.getRoomList()) {
+                    System.out.println("Adding room: " + room.getRoomNumber() + " - " + room.getRoomType());
+                    bookRooms.addItem("Room " + room.getRoomNumber() + " - " + room.getRoomType());
+                }
+            } else {
+                System.out.println("Selected hotel is null");
             }
+        } else {
+            System.out.println("No hotel selected");
         }
     }
 
@@ -173,7 +193,7 @@ public class BookRoomGUI extends JPanel{
         Object selectedItem = bookInInput.getSelectedItem();
         if (selectedItem!= null) {
             int inDay = (int) selectedItem;
-            for (int i = inDay; i <= 30; i++) {
+            for (int i = inDay; i <= 31; i++) {
                 bookOutInput.addItem(i);
             }
         }
