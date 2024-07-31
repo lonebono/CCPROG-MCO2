@@ -54,10 +54,10 @@ public class ReserveSystem {
     /**
      * Books a reservation in a selected hotel for specified check-in and check-out dates.
      */
-    public void bookReserve(String hotelName, int inDay, int outDay, String guestName, String discountCode) {
+    public void bookReserve(String hotelName, int inDay, int outDay, String guestName, int roomChoice, String discountCode) {
         Hotel selectedHotel = getHotel(hotelName);
         if (selectedHotel != null) {
-            selectedHotel.bookReserve(inDay, outDay, guestName, null, discountCode);
+            selectedHotel.bookReserve(inDay, outDay, guestName, roomChoice, discountCode);
         } else {
             System.out.println("Hotel not found.");
         }
