@@ -1,14 +1,11 @@
 package MCO2.src;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents a reservation made by a guest for a room in a hotel.
  */
 public class Reservation {
-    Scanner sc = new Scanner(System.in);
-
     private String guestName;
     private int inDay;
     private int outDay;
@@ -24,14 +21,15 @@ public class Reservation {
      * @param inDay     The day of check-in.
      * @param outDay    The day of check-out.
      * @param roomInfo  The Room object representing the room reserved.
+     * @param discountCode The discount code entered by the guest.
      */
-    public Reservation(String guestName, int inDay, int outDay, Room roomInfo) {
+    public Reservation(String guestName, int inDay, int outDay, Room roomInfo, String discountCode) {
         this.guestName = guestName;
         this.inDay = inDay;
         this.outDay = outDay;
         this.roomInfo = roomInfo;
-        this.bookPrice = calculateBookPrice();
-        //this.occDays = new ArrayList<>();
+        this.bookPrice = calculateBookPrice(discountCode);
+        this.occDays = new ArrayList<>();
 
         // Mark all days from inDay to outDay (exclusive) as occupied
         for (int i = inDay; i < outDay; i++) {
@@ -107,77 +105,35 @@ public class Reservation {
      *
      * @return The calculated booking price.
      */
-    public double calculateBookPrice() {
-        System.out.println("Do you have a discount code? [Y/N]");
-        String option = sc.nextLine();
-
-        if(option.equalsIgnoreCase("Y")) {
-            discountCode();
+    public double calculateBookPrice(String discountCode) {
+        if(discountCode.equals("I_WORK_HERE")) {
+            discountNum = 1;
+        } else if(discountCode.equals("STAY4_GET1") && getTotalDays() >= 5) {
+            discountNum = 2;
+        } else if (discountCode.equals("PAYDAY") && isPayDay() && !(outDay == 15 || outDay == 30)) {
+            discountNum = 3;
+        } else {
+            discountNum = 0;
         }
-
+        
         switch(discountNum) {
-            //I_WORK_HERE
-            case 1: return (roomInfo.getPricePerNight() * roomInfo.getTotalRate(inDay, outDay)) * 0.9;
-            //STAY4_GET1
-            case 2: return roomInfo.getTotalRate(inDay + 1, outDay) * roomInfo.getPricePerNight();
-            //PAYDAY
-            case 3: return (roomInfo.getTotalRate(inDay, outDay) * roomInfo.getPricePerNight()) * 0.93;
-            default: return roomInfo.getTotalRate(inDay, outDay) * roomInfo.getPricePerNight();
+            case 1: return (roomInfo.getPricePerNight() * getTotalDays()) * 0.9;
+            case 2: return roomInfo.getPricePerNight() * (getTotalDays() - 1);
+            case 3: return (roomInfo.getPricePerNight() * getTotalDays()) * 0.93;
+            default: return roomInfo.getPricePerNight() * getTotalDays();
         }
     }
 
     public boolean isPayDay() {
-        for (int i = 0; i < occDays.size(); i++) {
-            if(occDays.get(i) == 15 || occDays.get(i) == 30) {
+        for (int i = inDay; i < outDay; i++) {
+            if(i == 15 || i == 30) {
                 return true;
             }
         }
-
-        System.out.println("NOT PAYDAY");
         return false;
     }
 
     public boolean isMoreThan4() {
-        if(getTotalDays() >= 5) {
-            return true;
-        }
-
-        System.out.println("NOT BOOKED FOR MORE THAN 4 DAYS");
-        return false;
-    }
-
-    
-
-    public void discountCode() {
-        String ans;
-
-        do
-        {
-            System.out.println("Input Discount Code: ");
-            String code = sc.nextLine();
-
-            if(code.equals("I_WORK_HERE") ) {
-                System.out.println("SUCCESS");
-                this.discountNum = 1;
-                break;
-            }
-            else if(code.equals("STAY4_GET1") && isMoreThan4()) {
-                System.out.println("SUCCESS"); 
-                this.discountNum = 2;
-                break;  
-            }
-            else if (code.equals("PAYDAY") && isPayDay() && !(outDay == 15 || outDay == 30)) {
-                System.out.println("SUCCESS");  
-                this.discountNum = 3;
-                break;
-            }
-            else
-            {
-            System.out.println("Code Error\n");
-            System.out.println("Retry? [Y/N]\n");
-            ans = sc.nextLine();
-            }
-            
-        } while(ans.equalsIgnoreCase("Y"));  
+        return getTotalDays() >= 5;
     }
 }

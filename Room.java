@@ -8,20 +8,22 @@ import java.util.Iterator;
  */
 public class Room {
     private int roomNumber;
-    protected double pricePerNight = 1299.0; // Base Price // changed to protected so Deluxe and Executive can access
+    protected double pricePerNight = 1299.0; // Base Price
     private ArrayList<Integer> availability = new ArrayList<>(); // private works
-    private double[] priceRates = new double[30]; // array to hold price rates for each day | day 31 is not included since day 31 cannot be booked in
+    private double[] priceRates = new double[31]; // array to hold price rates for each day
     protected String roomType;
 
     /**
      * Constructs a room with a specified room number.
-     * Initializes availability for 30 days.
+     * Initializes availability for 31 days.
      *
      * @param roomNumber The room number.
+     * @param roomType The type of room.
      */
-    public Room(int roomNumber) {
+    public Room(int roomNumber, String roomType) {
         this.roomNumber = roomNumber;
-        for (int i = 0; i < 30; i++) { // Changed to 30 to prevent check-in on day 31
+        this.roomType = roomType;
+        for (int i = 0; i < 31; i++) { 
             availability.add(i+1);
             priceRates[i] = 1.0; //initialise to 100% at room creation
         }
@@ -37,7 +39,7 @@ public class Room {
     }
 
     public void setPriceRate(int day, double rate) {
-        if (day >= 1 && day <= 30) {
+        if (day >= 1 && day <= 31) {
             priceRates[day-1] = rate;
         }
     }
@@ -52,8 +54,8 @@ public class Room {
     }
 
     public String getRoomType() {
-		return roomType;
-	}
+        return roomType;
+    }
     
     public double getPriceRate(int day) {
         return priceRates[day - 1];
@@ -95,7 +97,7 @@ public class Room {
      * @return True if the room is available for the specified period, false otherwise.
      */
     public boolean isAvailable(int inDay, int outDay) {
-        if (inDay == 31 || outDay == 1) {
+        if (inDay < 1 || outDay > 31) {
             return false;
         }
         for (int day = inDay; day < outDay; day++) {

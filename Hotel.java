@@ -154,13 +154,13 @@ public class Hotel {
     public void createRoom(String roomType) { 
         if (roomList.size() < 50) {
             if(roomType.equalsIgnoreCase("Standard")){
-                roomList.add(new Standard(roomList.size()));
+                roomList.add(new Standard(roomList.size() + 1));
             }
             if(roomType.equalsIgnoreCase("Deluxe")){
-                roomList.add(new Deluxe(roomList.size()));
+                roomList.add(new Deluxe(roomList.size() + 1));
             }
             if(roomType.equalsIgnoreCase("Executive")){
-                roomList.add(new Executive(roomList.size()));
+                roomList.add(new Executive(roomList.size() + 1));
             }
         }
     }
@@ -169,49 +169,13 @@ public class Hotel {
      * Removes a room from the hotel.
      * Allows removal only if the room is not currently reserved.
      */
-    public void removeRoom() {
-        System.out.println("Available rooms to remove:");
-        ArrayList<Integer> removableRooms = new ArrayList<>();
-
-        for (int i = 0; i < roomList.size(); i++) {
-            boolean removable = true;
-            for (Reservation res : reservationList) {
-                if (res.getRoomInfo().getRoomNumber() == i + 1) {
-                    removable = false;
-                    break;
-                }
-            }
-            if (removable) {
-                removableRooms.add(i + 1);
-                System.out.println("Room " + (i+1) + ": " + roomList.get(i).getRoomType());
-            }
-        }
-
-        if (removableRooms.size() == 1) {
-            System.out.println("Cannot remove last room");
-            return;
-        }
-
-        System.out.println("Remove Room: ");
-        Scanner sc = new Scanner(System.in);
-        int roomChoice = sc.nextInt();
-        sc.nextLine(); // Consume newline
-
-        if (!removableRooms.contains(roomChoice)) {
-            System.out.println("Room " + roomChoice + " cannot be removed or does not exist");
-            sc.close();
-            return;
-        }
-
-        System.out.println("Confirm Removal of Room " + roomChoice + " YES[1] NO[Any Other Number]");
-        int yesNo = sc.nextInt();
-        sc.nextLine(); // Consume newline
-
-        if (yesNo == 1) {
+    public void removeRoom(int roomChoice) {
+        if (roomChoice > 0 && roomChoice <= roomList.size()) {
             roomList.remove(roomChoice - 1);
             System.out.println("Room has been removed");
+        } else {
+            System.out.println("Room " + roomChoice + " cannot be removed or does not exist");
         }
-        //sc.close(); edited out due to NoSuchElementException
     }
 
     private void updateRoomPrices(){
@@ -240,6 +204,15 @@ public class Hotel {
     public boolean canBookReservation(int inDay, int outDay) {
         for (Room room : roomList) {
             if (room.isAvailable(inDay, outDay)) {
+                for (Reservation reservation : reservationList) {
+                    if (reservation.getRoomInfo() == room) {
+                        for (int day : reservation.getOccDays()) {
+                            if (day >= inDay && day < outDay) {
+                                return false;
+                            }
+                        }
+                    }
+                }
                 return true;
             }
         }
@@ -252,39 +225,22 @@ public class Hotel {
      *
      * @param inDay  The check-in day.
      * @param outDay The check-out day.
+     * @param guestName The guest name.
+     * @param roomChoice The room choice.
      */
-    public void bookReserve(int inDay, int outDay) {
-        Scanner sc = new Scanner(System.in);
-
-      if (canBookReservation(inDay, outDay)) {
-            System.out.println("Enter your name: ");
-            String guestName = sc.nextLine();
-
-            System.out.println("Available Rooms:");
-        
-        for (int i = 0; i < roomList.size(); i++) {
-            Room room = roomList.get(i);
-            if (room.isAvailable(inDay, outDay)) {
-                System.out.println("Room " + (i + 1) + ": " + room.getRoomType());
-            }
-        }
-		
-		int roomChoice;
-		do
-		{
-			System.out.println("Select a valid room number: ");
-                	roomChoice = sc.nextInt();
-		} while(!roomList.get(roomChoice-1).isAvailable(inDay, outDay));
-
-                Reservation reserve = new Reservation(guestName, inDay, outDay, roomList.get(roomChoice-1));
+    public void bookReserve(int inDay, int outDay, String guestName, int roomChoice, String discountCode) {
+        if (canBookReservation(inDay, outDay)) {
+            if (roomList.get(roomChoice-1).isAvailable(inDay, outDay)) {
+                Reservation reserve = new Reservation(guestName, inDay, outDay, roomList.get(roomChoice-1), discountCode);
                 reservationList.add(reserve);
                 System.out.println("Reservation has been booked");
-                //sc.close(); this causes the error
                 return;
-            
+            } else {
+                System.out.println("Room " + roomChoice + " is not available for the specified dates");
+            }
+        } else {
+            System.out.println("No rooms are available for the specified dates");
         }
-        System.out.println("There are no available rooms for that date. Please create another booking");
-        sc.close();
     }
 
     /**

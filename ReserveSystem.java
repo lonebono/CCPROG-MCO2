@@ -164,7 +164,7 @@ public class ReserveSystem {
                     //selectedHotel.createRoom();
                     break;
                 case 2:
-                    selectedHotel.removeRoom();
+                    //selectedHotel.removeRoom();
                     break;
                 case 3:
                     System.out.print("Enter the new price: ");
@@ -289,7 +289,7 @@ public class ReserveSystem {
         //sc.close();
 
         if (selectedHotel.canBookReservation(inDay, outDay)) {
-            selectedHotel.bookReserve(inDay, outDay);
+            selectedHotel.bookReserve(inDay, outDay, null, outDay, null);
         } else {
             System.out.println("No available rooms for the selected dates.");
         }

@@ -2,8 +2,8 @@ package MCO2.src;
 
 public class Deluxe extends Room {
     Deluxe(int roomNumber) {
-        super(roomNumber);
-        this.roomType = "DELUXE";
+        super(roomNumber, "Deluxe");
+        this.roomType = "Deluxe";
         setPrice(getPricePerNight()); //initialises price of the room based on the base price
     }
 
