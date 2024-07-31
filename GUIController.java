@@ -70,6 +70,46 @@ public class GUIController implements ActionListener{
             }
         });
 
+        //View Hotel Action Listeners
+        viewHotelGUI.getHighLevel().addActionListener(new ActionListener() { //High Level Button
+            public void actionPerformed(ActionEvent e) {
+                //handleGetHighLevel();
+
+                //Unshow low options
+                viewHotelGUI.getLowLevelOption().setVisible(false);
+                viewHotelGUI.getLowOptions().setVisible(false);
+
+                viewHotelGUI.getHotelViewDate().setVisible(false);
+                viewHotelGUI.getViewDate().setVisible(false);
+
+                viewHotelGUI.getRoomViewInfo().setVisible(false);
+                viewHotelGUI.getViewRoom().setVisible(false);
+
+                viewHotelGUI.getReservationViewInfo().setVisible(false);
+                viewHotelGUI.getViewReserve().setVisible(false);
+            }
+        });
+
+        viewHotelGUI.getLowLevel().addActionListener(new ActionListener() { //Low Level Button
+            public void actionPerformed(ActionEvent e) {
+                //handleGetLowLevel();
+
+                //Show Low Options
+                viewHotelGUI.getLowLevelOption().setVisible(true);
+                viewHotelGUI.getLowOptions().setVisible(true);
+                //Show Date Option
+                viewHotelGUI.getHotelViewDate().setVisible(true);
+                viewHotelGUI.getViewDate().setVisible(true);
+                //Show Room Option
+                viewHotelGUI.getRoomViewInfo().setVisible(true);
+                viewHotelGUI.getViewRoom().setVisible(true);
+                //Show Reserve Option
+                viewHotelGUI.getReservationViewInfo().setVisible(true);
+                viewHotelGUI.getViewReserve().setVisible(true);
+
+            }
+        });
+
     }
 
     private void updateCreateHotelView() {
@@ -145,6 +185,32 @@ public class GUIController implements ActionListener{
         updateCreateHotelView();
     }
 
+    //View Hotel Actions
+    private void handleGetHighLevel() {
+        // Extract data from CreateHotelView
+        viewHotelGUI.getviewTextInfo().setText("Clicked");
+        
+        //Implement this
+        /*System.out.print("Select a hotel to view: ");
+        int hotelChoice = sc.nextInt();
+        sc.nextLine(); // Consume newline
+
+        if (hotelChoice < 1 || hotelChoice > hotelList.size()) {
+            System.out.println("Invalid choice.");
+            return;
+        }
+
+        Hotel selectedHotel = hotelList.get(hotelChoice - 1);
+        System.out.println("\nHotel: " + selectedHotel.getHotelName());
+        System.out.println("Number of rooms: " + selectedHotel.getRoomList().size());
+        System.out.println("Estimated earnings for the month: " + selectedHotel.calculateTotalEarnings());*/
+    }
+
+    private void handleGetLowLevel() {
+        // Extract data from CreateHotelView
+        viewHotelGUI.getviewTextInfo().setText("Clicked 2");
+    }
+    
     private boolean isValidRoomType(String roomType) {
         return roomType.equalsIgnoreCase("Standard") || roomType.equalsIgnoreCase("Deluxe") || roomType.equalsIgnoreCase("Executive");
     }
