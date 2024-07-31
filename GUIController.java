@@ -1,12 +1,9 @@
 package MCO2.src;
 
-import javax.sound.sampled.Control;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUIController implements ActionListener{
+public class GUIController implements ActionListener {
     private MainGUIView view;
     private ReserveSystem reserveSystem;
     private CreateHotelGUI createHotelGUI;
@@ -14,16 +11,17 @@ public class GUIController implements ActionListener{
     private ManageHotelGUI manageHotelGUI;
     private BookRoomGUI bookRoomGUI;
 
-    public GUIController(MainGUIView view, ReserveSystem reserveSystem){
+    public GUIController(MainGUIView view, ReserveSystem reserveSystem, 
+                         CreateHotelGUI createHotelGUI, ViewHotelGUI viewHotelGUI,
+                         ManageHotelGUI manageHotelGUI, BookRoomGUI bookRoomGUI) {
         this.view = view;
         this.reserveSystem = reserveSystem;
-        
-        createHotelGUI = new CreateHotelGUI();
-        viewHotelGUI = new ViewHotelGUI();
-        manageHotelGUI = new ManageHotelGUI();
-        bookRoomGUI = new BookRoomGUI(reserveSystem);
+        this.createHotelGUI = createHotelGUI;
+        this.viewHotelGUI = viewHotelGUI;
+        this.manageHotelGUI = manageHotelGUI;
+        this.bookRoomGUI = bookRoomGUI;
 
-        view.addCard( createHotelGUI, "Create");
+        view.addCard(createHotelGUI, "Create");
         view.addCard(viewHotelGUI, "View");
         view.addCard(manageHotelGUI, "Manage");
         view.addCard(bookRoomGUI, "Book");
@@ -69,7 +67,6 @@ public class GUIController implements ActionListener{
                 handleBookRoomSubmit();
             }
         });
-
     }
 
     private void updateCreateHotelView() {
@@ -119,9 +116,11 @@ public class GUIController implements ActionListener{
             return;
         }
         // Check if hotel already exists
-        if (reserveSystem.getHotelList().stream().anyMatch(hotel -> hotel.getHotelName().equalsIgnoreCase(hotelName))) {
-            createHotelGUI.getInputFeedback().setText("Hotel already exists.");
-            return;
+        for (Hotel hotel : reserveSystem.getHotelList()) {
+            if (hotel.getHotelName().equalsIgnoreCase(hotelName)) {
+                createHotelGUI.getInputFeedback().setText("Hotel already exists.");
+                return;
+            }
         }
         // Check if room type is valid
         if (!isValidRoomType(roomType)) {
@@ -236,6 +235,4 @@ public class GUIController implements ActionListener{
     }
     
     //ALL OF THE ACTIONS MUST FOLLOW MVC
-    
 }
-

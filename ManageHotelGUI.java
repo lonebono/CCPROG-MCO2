@@ -1,10 +1,7 @@
 package MCO2.src;
 
-import javax.sound.sampled.Control;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ManageHotelGUI extends JPanel {
     

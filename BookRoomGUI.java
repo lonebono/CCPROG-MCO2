@@ -1,21 +1,21 @@
 package MCO2.src;
 
-import javax.sound.sampled.Control;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class BookRoomGUI extends JPanel{
+public class BookRoomGUI extends JPanel {
     private JButton bookRoomSubmit;
-    private JComboBox bookHotels, bookRooms;
-    private JComboBox bookInInput, bookOutInput;
+    private JComboBox<String> bookHotels, bookRooms;
+    private JComboBox<Integer> bookInInput, bookOutInput;
     private JTextField bookNameInput, bookFeedbackInput, bookDiscountInput;
     private ReserveSystem reserveSystem;
-    public BookRoomGUI(ReserveSystem reserveSystem){
+
+    public BookRoomGUI(ReserveSystem reserveSystem) {
         this.reserveSystem = reserveSystem;
-        //Book Reservation Panel
-        //Panels
+
+        // Book Reservation Panel
         setLayout(new BorderLayout());
         JPanel bookList = new JPanel(new GridBagLayout());
         GridBagConstraints gbcBookList = new GridBagConstraints();
@@ -25,68 +25,103 @@ public class BookRoomGUI extends JPanel{
         gbcBookInput.insets = new Insets(0, 0, 10, 0);
 
         setBackground(Color.GRAY);
-        //Booking Information
+
+        // Booking Information
         bookList.setPreferredSize(new Dimension(400, 600));
         add(bookList, BorderLayout.WEST);
+
         JLabel bookHotelLabel = new JLabel("Select Hotel: ");
-        gbcBookList.gridx = 0; gbcBookList.gridy = 0; 
+        gbcBookList.gridx = 0;
+        gbcBookList.gridy = 0;
         bookList.add(bookHotelLabel, gbcBookList);
+
         bookHotels = new JComboBox<>();
-        gbcBookList.gridx = 1; gbcBookList.gridy = 0;
+        gbcBookList.gridx = 1;
+        gbcBookList.gridy = 0;
         bookHotels.setPreferredSize(new Dimension(200, 20));
         bookList.add(bookHotels, gbcBookList);
+
         JLabel bookRoomsLabel = new JLabel("Select Room: ");
-        gbcBookList.gridx = 0; gbcBookList.gridy = 1;
+        gbcBookList.gridx = 0;
+        gbcBookList.gridy = 1;
         bookList.add(bookRoomsLabel, gbcBookList);
+
         bookRooms = new JComboBox<>();
-        gbcBookList.gridx = 1; gbcBookList.gridy = 1;
+        gbcBookList.gridx = 1;
+        gbcBookList.gridy = 1;
         bookRooms.setPreferredSize(new Dimension(200, 20));
         bookList.add(bookRooms, gbcBookList);
 
-        //Booking Input
-        bookInput.setPreferredSize(new Dimension(400,600));
+        // Booking Input
+        bookInput.setPreferredSize(new Dimension(400, 600));
         add(bookInput, BorderLayout.EAST);
+
         JLabel bookFeedbackLabel = new JLabel("Feedback:", JLabel.CENTER);
-        gbcBookInput.gridx = 0; gbcBookInput.gridy = 0;
+        gbcBookInput.gridx = 0;
+        gbcBookInput.gridy = 0;
         bookInput.add(bookFeedbackLabel, gbcBookInput);
+
         bookFeedbackInput = new JTextField(15);
-        gbcBookInput.gridx = 1; gbcBookInput.gridy = 0;
+        gbcBookInput.gridx = 1;
+        gbcBookInput.gridy = 0;
         bookFeedbackInput.setEditable(false);
         bookInput.add(bookFeedbackInput, gbcBookInput);
+
         JLabel bookNameLabel = new JLabel("Name:", JLabel.CENTER);
-        gbcBookInput.gridx = 0; gbcBookInput.gridy = 1;
+        gbcBookInput.gridx = 0;
+        gbcBookInput.gridy = 1;
         bookInput.add(bookNameLabel, gbcBookInput);
+
         bookNameInput = new JTextField(15);
-        gbcBookInput.gridx = 1; gbcBookInput.gridy = 1;
+        gbcBookInput.gridx = 1;
+        gbcBookInput.gridy = 1;
         bookInput.add(bookNameInput, gbcBookInput);
+
         JLabel bookDiscountLabel = new JLabel("Discount Code:", JLabel.CENTER);
-        gbcBookInput.gridx = 0; gbcBookInput.gridy = 2;
+        gbcBookInput.gridx = 0;
+        gbcBookInput.gridy = 2;
         bookInput.add(bookDiscountLabel, gbcBookInput);
+
         bookDiscountInput = new JTextField(15);
-        gbcBookInput.gridx = 1; gbcBookInput.gridy = 2;
+        gbcBookInput.gridx = 1;
+        gbcBookInput.gridy = 2;
         bookInput.add(bookDiscountInput, gbcBookInput);
+
         JLabel bookInLabel = new JLabel("Check-In Day:", JLabel.CENTER);
-        gbcBookInput.gridx = 0; gbcBookInput.gridy = 3;
+        gbcBookInput.gridx = 0;
+        gbcBookInput.gridy = 3;
         bookInput.add(bookInLabel, gbcBookInput);
-        String[] days = new String[31];
-        for (int i = 0; i < 31; i++) {
-            days[i] = String.valueOf(i + 1);
+
+        bookInInput = new JComboBox<>();
+        for (int i = 1; i <= 31; i++) {
+            bookInInput.addItem(i);
         }
-        bookInInput = new JComboBox<>(days);
-        gbcBookInput.gridx = 1; gbcBookInput.gridy = 3;
+        gbcBookInput.gridx = 1;
+        gbcBookInput.gridy = 3;
         bookInInput.setPreferredSize(new Dimension(50, 20));
         bookInput.add(bookInInput, gbcBookInput);
+
         JLabel bookOutLabel = new JLabel("Check-Out Day:", JLabel.CENTER);
-        gbcBookInput.gridx = 0; gbcBookInput.gridy = 4;
+        gbcBookInput.gridx = 0;
+        gbcBookInput.gridy = 4;
         bookInput.add(bookOutLabel, gbcBookInput);
-        bookOutInput = new JComboBox<>(days);
-        gbcBookInput.gridx = 1; gbcBookInput.gridy = 4;
+
+        bookOutInput = new JComboBox<>();
+        for (int i = 1; i <= 31; i++) {
+            bookOutInput.addItem(i);
+        }
+        gbcBookInput.gridx = 1;
+        gbcBookInput.gridy = 4;
         bookOutInput.setPreferredSize(new Dimension(50, 20));
         bookInput.add(bookOutInput, gbcBookInput);
+
         bookRoomSubmit = new JButton("Submit");
-        gbcBookInput.gridx = 0; gbcBookInput.gridy = 5; gbcBookInput.gridwidth = 2;
+        gbcBookInput.gridx = 0;
+        gbcBookInput.gridy = 5;
+        gbcBookInput.gridwidth = 2;
         bookInput.add(bookRoomSubmit, gbcBookInput);
 
+        // Populate bookHotels JComboBox with hotel names
         for (Hotel hotel : reserveSystem.getHotelList()) {
             bookHotels.addItem(hotel.getHotelName());
         }
@@ -95,45 +130,24 @@ public class BookRoomGUI extends JPanel{
         bookHotels.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            updateBookRooms();
+                updateBookRooms();
             }
         });
-        // Initialize bookRooms JComboBox
-        bookRooms = new JComboBox<>();
 
-        // Initialize check-in day JComboBox
-        bookInInput = new JComboBox<>();
-        for (int i = 1; i <= 31; i++) {
-            bookInInput.addItem(i);
-        }
-
-        // Initialize check-out day JComboBox
-        bookOutInput = new JComboBox<>();
-        for (int i = 1; i <= 31; i++) {
-            bookOutInput.addItem(i);
-        }
-
+        // Add ActionListener to bookInInput JComboBox
         bookInInput.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateBookOutInput();
             }
         });
-
-        
-        bookHotels.addActionListener(new ActionListener() {
-        @Override
-            public void actionPerformed(ActionEvent e) {
-            updateBookRooms();
-        }
-        });
     }
 
-    public JComboBox getBookHotels() {
+    public JComboBox<String> getBookHotels() {
         return bookHotels;
     }
 
-    public JComboBox getBookRooms() {
+    public JComboBox<String> getBookRooms() {
         return bookRooms;
     }
 
@@ -141,11 +155,11 @@ public class BookRoomGUI extends JPanel{
         return bookNameInput;
     }
 
-    public JComboBox getBookInInput() {
+    public JComboBox<Integer> getBookInInput() {
         return bookInInput;
     }
 
-    public JComboBox getBookOutInput() {
+    public JComboBox<Integer> getBookOutInput() {
         return bookOutInput;
     }
 
@@ -191,13 +205,11 @@ public class BookRoomGUI extends JPanel{
     public void updateBookOutInput() {
         bookOutInput.removeAllItems();
         Object selectedItem = bookInInput.getSelectedItem();
-        if (selectedItem!= null) {
+        if (selectedItem != null) {
             int inDay = (int) selectedItem;
             for (int i = inDay; i <= 31; i++) {
                 bookOutInput.addItem(i);
             }
         }
     }
-
 }
-

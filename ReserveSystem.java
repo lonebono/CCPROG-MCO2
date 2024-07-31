@@ -1,7 +1,6 @@
 package MCO2.src;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ReserveSystem {
     private ArrayList<Hotel> hotelList = new ArrayList<>();

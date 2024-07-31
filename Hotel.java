@@ -1,6 +1,6 @@
+
 package MCO2.src;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents a hotel with rooms and reservations in a hotel reservation system.
