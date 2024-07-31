@@ -7,6 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ManageHotelGUI extends JPanel {
+    private JComboBox manageHotels, manageOptions, roomTypeOptions;
+    private JComboBox roomRemove, roomPrice, reserveRemove;
+    private JButton roomTypeButton, roomRemoveButton, roomPriceButton, reserveRemoveButton;
+    private JButton hotelNameButton, hotelRemoveButton;
+    private JTextField roomPriceInput, hotelNameInput;
     
     public ManageHotelGUI(){
         //Manage Hotel Panel
@@ -134,5 +139,61 @@ public class ManageHotelGUI extends JPanel {
         gbcHotelManageInput.gridx = 1; gbcHotelManageInput.gridy = 11; //change y to 3 when combobox finish for appear disappear
         gbcHotelManageInput.fill = GridBagConstraints.HORIZONTAL;
         hotelManageInput.add(hotelRemoveButton, gbcHotelManageInput);
+    }
+
+    public JComboBox getManageHotels() {
+        return manageHotels;
+    }
+
+    public JComboBox getManageOptions() {
+        return manageOptions;
+    }
+    
+    public JComboBox getRoomTypeOptions() {
+        return roomTypeOptions;
+    }
+
+    public JButton getRoomTypeButton() {
+        return roomTypeButton;
+    }
+
+    public JComboBox getRoomRemove() {
+        return roomRemove;
+    }
+    
+    public JButton getRoomRemoveButton() {
+        return roomRemoveButton;
+    }
+
+    public JComboBox getRoomPrice() {
+        return roomPrice;
+    }
+
+    public JTextField getRoomPriceInput() {
+        return roomPriceInput;
+    }
+
+    public JButton getRoomPriceButton() {
+        return roomPriceButton;
+    }
+
+    public JComboBox getReserveRemove() {
+        return reserveRemove;
+    }
+
+    public JButton getReserveRemoveButton() {
+        return reserveRemoveButton;
+    }
+
+    public JTextField getHotelNameInput() {
+        return hotelNameInput;
+    }
+
+    public JButton getHotelNameButton() {
+        return hotelNameButton;
+    }
+
+    public JButton getHotelRemoveButton() {
+        return hotelRemoveButton;
     }
 }
