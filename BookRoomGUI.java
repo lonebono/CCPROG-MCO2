@@ -163,7 +163,7 @@ public class BookRoomGUI extends JPanel{
         }
         if (selectedHotel != null) {
             for (Room room : selectedHotel.getRoomList()) {
-                bookRooms.addItem("Room " + room.getRoomNumber());
+                bookRooms.addItem("Room " + room.getRoomNumber() + " - " + room.getRoomType());
             }
         }
     }

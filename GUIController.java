@@ -138,6 +138,7 @@ public class GUIController implements ActionListener{
         for (Hotel hotel : reserveSystem.getHotelList()) {
             if (hotel.getHotelName().equalsIgnoreCase(hotelName)) {
                 hotel.createRoom(roomType);
+                System.out.println("Rooms in hotel " + hotelName + ": " + hotel.getRoomList());
                 break;
             }
         }   
@@ -157,7 +158,8 @@ public class GUIController implements ActionListener{
             bookRoomGUI.getBookFeedbackInput().setText("Please select a room");
             return;
         }
-        int roomNumber = Integer.parseInt(roomSelection.split(" ")[1]);
+        String[] roomInfo = roomSelection.split(" - ");
+        int roomNumber = Integer.parseInt(roomInfo[0].substring(5));
         int inDay = (int) bookRoomGUI.getBookInInput().getSelectedItem();
         int outDay = (int) bookRoomGUI.getBookOutInput().getSelectedItem();
 
@@ -169,6 +171,10 @@ public class GUIController implements ActionListener{
         
         // Get the text from the JTextFields
         String name = bookRoomGUI.getBookNameInput().getText();
+        if (bookRoomGUI.getBookNameInput().getText().isEmpty()) {
+            bookRoomGUI.getBookFeedbackInput().setText("Please enter a name.");
+            return;
+        }
         String discountCode = bookRoomGUI.getBookDiscountInput().getText(); // get the discount code from the JTextField
         
         // Validate the input and add the reservation to the hotel's arraylist of reservation objects
