@@ -154,13 +154,13 @@ public class Hotel {
     public void createRoom(String roomType) { 
         if (roomList.size() < 50) {
             if(roomType.equalsIgnoreCase("Standard")){
-                roomList.add(new Standard(roomList.size() + 1));
+                roomList.add(new Standard(roomList.size()));
             }
             if(roomType.equalsIgnoreCase("Deluxe")){
-                roomList.add(new Deluxe(roomList.size() + 1));
+                roomList.add(new Deluxe(roomList.size()));
             }
             if(roomType.equalsIgnoreCase("Executive")){
-                roomList.add(new Executive(roomList.size() + 1));
+                roomList.add(new Executive(roomList.size()));
             }
         }
     }
