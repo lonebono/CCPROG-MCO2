@@ -63,6 +63,13 @@ public class GUIController implements ActionListener{
                 handleCreateHotelSubmit();
             }
         });
+
+        bookRoomGUI.getBookRoomSubmit().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                handleBookRoomSubmit();
+            }
+        });
+
     }
 
     private void updateCreateHotelView() {
@@ -93,9 +100,17 @@ public class GUIController implements ActionListener{
     }
 
     private void updateBookRoomView() {
-        // Add logic to update the BookRoomView
-        // For example, show options for booking rooms
-        //bookRoomGUI.getBookingInfo().setText("Options for booking rooms..."); // example
+        // Update the bookHotels JComboBox
+        updateBookHotelsComboBox();
+
+        // Update the bookRooms JComboBox
+        updateBookRoomsComboBox();
+
+        // Update the bookInInput JComboBox
+        updateBookInInputComboBox();
+
+        // Update the bookOutInput JComboBox
+        updateBookOutInputComboBox();
     }
 
     private void handleCreateHotelSubmit() {
@@ -134,23 +149,84 @@ public class GUIController implements ActionListener{
         return roomType.equalsIgnoreCase("Standard") || roomType.equalsIgnoreCase("Deluxe") || roomType.equalsIgnoreCase("Executive");
     }
 
+    private void handleBookRoomSubmit() {
+        // Get the selected values from the JComboBoxes
+        String hotelName = (String) bookRoomGUI.getBookHotels().getSelectedItem();
+        String roomType = (String) bookRoomGUI.getBookRooms().getSelectedItem();
+        int inDay = (int) bookRoomGUI.getBookInInput().getSelectedItem();
+        int outDay = (int) bookRoomGUI.getBookOutInput().getSelectedItem();
+        
+        // Get the text from the JTextFields
+        String name = bookRoomGUI.getBookNameInput().getText();
+        String discountCode = bookRoomGUI.getBookDiscountInput().getText();
+        
+        // Validate the input and add the reservation to the hotel's arraylist of reservation objects
+        Hotel selectedHotel = null;
+        for (Hotel hotel : reserveSystem.getHotelList()) {
+            if (hotel.getHotelName().equals(hotelName)) {
+                selectedHotel = hotel;
+                break;
+            }
+        }
+        if (selectedHotel!= null) {
+            Room room = selectedHotel.getRoom(roomType);
+            if (room!= null) {
+                Reservation reservation = new Reservation(name, inDay, outDay, room, discountCode);
+                if (selectedHotel.addReservation(reservation)) {
+                    bookRoomGUI.getBookFeedbackInput().setText("Reservation Success");
+                } else {
+                    bookRoomGUI.getBookFeedbackInput().setText("Reservation Failed");
+                }
+            } else {
+                bookRoomGUI.getBookFeedbackInput().setText("Room not available");
+            }
+        } else {
+            bookRoomGUI.getBookFeedbackInput().setText("Hotel not found");
+        }
+    }
+
+    private void updateBookHotelsComboBox() {
+        bookRoomGUI.getBookHotels().removeAllItems();
+        for (Hotel hotel : reserveSystem.getHotelList()) {
+            bookRoomGUI.getBookHotels().addItem(hotel.getHotelName());
+        }
+    }
+
+    private void updateBookRoomsComboBox() {
+        bookRoomGUI.getBookRooms().removeAllItems();
+        // You need to get the selected hotel from bookHotels JComboBox
+        String selectedHotel = (String) bookRoomGUI.getBookHotels().getSelectedItem();
+        Hotel hotel = reserveSystem.getHotel(selectedHotel);
+        if (hotel!= null) {
+            for (Room room : hotel.getRoomList()) {
+                bookRoomGUI.getBookRooms().addItem(room.getRoomType());
+            }
+        }
+    }
+
+    private void updateBookInInputComboBox() {
+        bookRoomGUI.getBookInInput().removeAllItems();
+        // You need to add days of the month to this JComboBox
+        for (int i = 1; i <= 31; i++) {
+            bookRoomGUI.getBookInInput().addItem(i);
+        }
+    }
+
+    private void updateBookOutInputComboBox() {
+        bookRoomGUI.getBookOutInput().removeAllItems();
+        // You need to add days of the month to this JComboBox
+        for (int i = 1; i <= 31; i++) {
+            bookRoomGUI.getBookOutInput().addItem(i);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         // This method is not used in the current implementation
         // It's a placeholder for future implementation or can be removed
     }
     
-    //public void updateView(){
-        // Create different panels with BorderLayout for CardLayout
-
-        // Add the cards to the card panel
-        //view.addCard(card1, "Create");
-        //view.addCard(card2, "View");
-        //view.addCard(card3, "Manage");
-        //view.addCard(card4, "Book");
-    //}
-
-    //ALL OF THE ACTIONS //  tries to FOLLOW MVC
+    //ALL OF THE ACTIONS MUST FOLLOW MVC
     
 }
 

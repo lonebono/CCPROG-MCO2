@@ -1,18 +1,17 @@
 package MCO2.src;
 
-import java.awt.*;
+import javax.sound.sampled.Control;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ViewHotelGUI extends JPanel{
-    private JComboBox viewHotels;
-    private JButton highLevel, lowLevel;
-    private JComboBox lowOptions, viewDate, viewRoom, viewReserve;
     
     public ViewHotelGUI(){
         //View Hotel Panel
         setLayout(new BorderLayout());
         setBackground(Color.GREEN);
-
         //View Hotel Panel LEFT
         JPanel hotelViewList = new JPanel(new GridBagLayout());
         GridBagConstraints gbcHotelViewList = new GridBagConstraints();
@@ -85,33 +84,6 @@ public class ViewHotelGUI extends JPanel{
         gbcHotelViewList.gridx = 1; gbcHotelViewList.gridy = 6; //change y to 4 when combobox finish for appear disappear
         viewReserve.setPreferredSize(new Dimension(200, 30));
         hotelViewList.add(viewReserve, gbcHotelViewList);
-    }
-
-    public JComboBox getViewHotels() {
-        return viewHotels;
-    }
-
-    public JButton getHighLevel() {
-        return highLevel;
-    }
-
-    public JButton getLowLevel() {
-        return lowLevel;
-    }
-
-    public JComboBox getLowOptions() {
-        return lowOptions;
-    }
-
-    public JComboBox getViewDate() {
-        return viewDate;
-    }
-
-    public JComboBox getViewRoom() {
-        return viewRoom;
-    }
-    public JComboBox getViewReserve() {
-        return viewReserve;
     }
 
 }
