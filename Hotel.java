@@ -207,7 +207,7 @@ public class Hotel {
                 for (Reservation reservation : reservationList) {
                     if (reservation.getRoomInfo() == room) {
                         for (int day : reservation.getOccDays()) {
-                            if (day >= inDay && day < outDay) {
+                            if (day >= inDay && day <= outDay) { 
                                 return false;
                             }
                         }

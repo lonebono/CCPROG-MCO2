@@ -144,5 +144,9 @@ public class Room {
             availability.add(in - 1, in);
             in++;
         }
-    } 
+    }
+
+    public String getRoomName() {
+        return "Room " + roomNumber + " - " + roomType;
+    }
 }
